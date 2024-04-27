@@ -13,6 +13,16 @@ interface CmsSingleEntryResponse<T> {
   meta: never;
 }
 
+axios.interceptors.request.use(
+  config => {
+    config.headers['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_CMS_API_KEY}`
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
 export const getStaticPage = async (slug: string, locale?: string) => {
   if (!isCleanInput(slug)) {
     throw new Error('Invalid slug')
