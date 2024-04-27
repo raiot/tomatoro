@@ -8,9 +8,9 @@ import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
-import { getStaticPage } from '~/utils/cms.api'
+import { getPostBySlug } from '~/utils/cms.api'
 
-const fallbackBlog: StaticPage = {
+const fallbackBlog: Post = {
   id: 99999,
   attributes: {
     title: 'Oops! 🍅 Time\'s Up!',
@@ -25,10 +25,10 @@ const fallbackBlog: StaticPage = {
 }
 
 export const getStaticProps: GetStaticProps<
-  { page: StaticPage },
+  { page: Post },
   {}
 > = async () => {
-  let page = await getStaticPage('error-404')
+  let page = await getPostBySlug('error-404')
 
   if (!page) {
     page = fallbackBlog
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<
   return { props: { page } }
 }
 
-export default function Custom404 ({ page }: { page: StaticPage }) {
+export default function Custom404 ({ page }: { page: Post }) {
   return (
     <Page subtitle={ page.attributes.title }>
       <Screen>

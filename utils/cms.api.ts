@@ -8,37 +8,23 @@ interface CmsResponse<T> {
   meta: never;
 }
 
-interface CmsSingleEntryResponse<T> {
-  data: T;
-  meta: never;
-}
-
 axios.interceptors.request.use(
   config => {
-    config.headers['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_CMS_API_KEY}`
+    config.headers['Authorization'] = `Bearer ${ process.env.NEXT_PUBLIC_CMS_API_KEY }`
     return config
   },
   error => {
     return Promise.reject(error)
-  }
+  },
 )
 
-export const getStaticPage = async (slug: string, locale?: string) => {
+export const getPostBySlug = async (slug: string, locale?: string) => {
   if (!isCleanInput(slug)) {
     throw new Error('Invalid slug')
   }
 
   const localeParam = locale ? `&locale=${ locale }` : ''
-  const { data: obj } = await axios.get<CmsSingleEntryResponse<StaticPage>>(`${ CMS_URL }/${ slug }?populate[0]=seo&populate[1]=seo.image${ localeParam }`)
-  return obj.data
-}
-
-export const getPostBySlug = async (slug: string) => {
-  if (!isCleanInput(slug)) {
-    throw new Error('Invalid slug')
-  }
-
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[1]=hero&populate[2]=seo&populate[3]=seo.image`)
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.image${ localeParam }`)
   return obj.data[0]
 }
 

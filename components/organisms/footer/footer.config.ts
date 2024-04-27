@@ -20,8 +20,8 @@ const supportItems: FooterLink[] = [
 
 const toolItems: FooterLink[] = [
   { key: 'tomatoro', href: LINKS.TOMATORO },
+  { key: 'mitrabajo', href: LINKS.MITRABAJO },
   { key: 'dolar', href: LINKS.DOLAR },
-  { key: 'clipps', href: LINKS.CLIPPS },
   { key: 'gatolinero', href: LINKS.GATOLINERO },
 ]
 

@@ -92,23 +92,33 @@ type Post = {
   id: number
   attributes: {
     title: string
-    slug: string
     content: string
     excerpt: string
     keywords: string
-    category: {
-      data: Category | null
-    }
-    hero?: {
-      data: Image | null
-    }
     thumbnail?: {
       data: Image | null
     }
     locale: string
-    publishedAt: string
     createdAt: string
     updatedAt: string
+    // title: string
+    // slug: string
+    // content: string
+    // excerpt: string
+    // keywords: string
+    // category: {
+    //   data: Category | null
+    // }
+    // hero?: {
+    //   data: Image | null
+    // }
+    // thumbnail?: {
+    //   data: Image | null
+    // }
+    // locale: string
+    // publishedAt: string
+    // createdAt: string
+    // updatedAt: string
   }
 }
 

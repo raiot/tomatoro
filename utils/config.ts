@@ -69,6 +69,7 @@ export const LINKS = {
   CLIPPS: 'https://clipps.io',
   SONGBOX: 'https://songbox.io',
   GATOLINERO: 'https://t.me/GatolineroBot',
+  MITRABAJO: 'https://eslegalmitrabajo.com',
 }
 
 export const CMS_URL = 'https://cms-tomatoro.pozole.dev/api'

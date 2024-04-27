@@ -6,7 +6,7 @@ import { BackCta } from '~/components/atoms/back-cta'
 import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
-import { getBanners, getStaticPage } from '~/utils/cms.api'
+import { getBanners, getPostBySlug } from '~/utils/cms.api'
 import { PAGES } from '~/utils/config'
 
 export const getStaticPaths = async () => {
@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps<
   try {
     const slug = params?.slug || ''
     const [post, banners] = await Promise.all([
-      getStaticPage(slug, locale),
+      getPostBySlug(slug, locale),
       getBanners(slug, locale),
     ])
 
@@ -45,6 +45,8 @@ export default function PageBySlug ({ banners, post }: { post: StaticPage, banne
   if (!post) {
     return null
   }
+
+  console.log('[DEBUG] post', post)
 
   const seo = {
     title: post.attributes.title,
