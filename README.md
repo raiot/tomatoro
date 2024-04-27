@@ -60,8 +60,9 @@ This schedule is not final and will change in time:
 
 - **v3.0.x** - Dark theme
 
-#### Somewhere in 2023
+#### Somewhere in 2024
 
+- **v3.0.x** - Dark theme
 - **v3.x** - Quick actions from notifications (when supported by the browser)
 - **v3.x** - Better support: knowledge database with guides and solutions for common issues
 - **v3.x** - Better support: new channels for faster support response (replacement of GitHub issues)
