@@ -37,20 +37,24 @@ function generateSiteMap ({ domain, posts, staticPages }: SiteMapData) {
 }
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
-  const staticPages = getAllStaticPages()
-  const posts = await getAllPosts()
-  const sitemap = generateSiteMap({
-    posts,
-    domain: 'https://tomatoro.com',
-    staticPages,
-  })
+  try {
+    const staticPages = getAllStaticPages()
+    const posts = await getAllPosts()
+    const sitemap = generateSiteMap({
+      posts,
+      domain: 'https://tomatoro.com',
+      staticPages,
+    })
 
-  res.setHeader('Content-Type', 'text/xml')
-  res.write(sitemap)
-  res.end()
+    res.setHeader('Content-Type', 'text/xml')
+    res.write(sitemap)
+    res.end()
 
-  return {
-    props: {},
+    return {
+      props: {},
+    }
+  } catch (e) {
+    throw new Error('[getServerSideProps] sitemap')
   }
 }
 

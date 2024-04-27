@@ -10,9 +10,13 @@ import { Page } from '~/components/templates/page'
 import { getUpdates } from '~/utils/cms.api'
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ locale }) => {
-  const updates = await getUpdates(locale)
-  const sortedUpdates = updates.sort((a, b) => b.attributes.date.localeCompare(a.attributes.date))
-  return { props: { updates: sortedUpdates } }
+  try {
+    const updates = await getUpdates(locale)
+    const sortedUpdates = updates.sort((a, b) => b.attributes.date.localeCompare(a.attributes.date))
+    return { props: { updates: sortedUpdates } }
+  } catch (e) {
+    throw new Error('[getServerSideProps] getUpdates')
+  }
 }
 
 export default function Terms ({ updates }: { updates: Update[] }) {

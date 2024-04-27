@@ -12,17 +12,11 @@ import {
 } from '~/contexts/notifications/notifications-context.provider'
 import { TimerProvider } from '~/contexts/timer'
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
   Posthog.init(
     process.env.NEXT_PUBLIC_POSTHOG_KEY as string,
     {
       api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
-      loaded: (posthog) => {
-        // Enable debug mode in development
-        if (process.env.NODE_ENV === 'development') {
-          posthog.opt_out_capturing()
-        }
-      },
     },
   )
 }

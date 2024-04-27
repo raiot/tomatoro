@@ -71,4 +71,4 @@ export const LINKS = {
   GATOLINERO: 'https://t.me/GatolineroBot',
 }
 
-export const CMS_URL = 'https://cms-tomatoro.tepache.dev/api'
+export const CMS_URL = 'https://cms-tomatoro.pozole.dev/api'

@@ -14,8 +14,12 @@ import { getBanners } from '~/utils/cms.api'
 import { formatTime } from '~/utils/timer.utils'
 
 export const getServerSideProps: GetServerSideProps<{}> = async () => {
-  const banners = await getBanners('home')
-  return { props: { banners } }
+  try {
+    const banners = await getBanners('home')
+    return { props: { banners } }
+  } catch (e) {
+    throw new Error('[getServerSideProps] getBanners')
+  }
 }
 
 export default function Home ({ banners }: { banners: Banner[] }) {
