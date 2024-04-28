@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
 import { FC } from 'react'
 import { Close, Flex, Grid, MenuButton, NavLink, Text } from 'theme-ui'
@@ -7,15 +8,9 @@ import { useBoolean } from 'usehooks-ts'
 
 import { LanguageSelector } from '~/components/molecules/language-selector'
 import logoTomatoro from '~/public/svg/logo-tomatoro.svg'
-import { LINKS } from '~/utils/config'
+import { LINKS, PAGES } from '~/utils/config'
 
 import { Container, Heading, MotionNav } from './header.styles'
-
-const menuItems = [
-  { key: 'home', href: LINKS.HOME },
-  { key: 'howItWorks', href: LINKS.HOW_IT_WORKS },
-  { key: 'contact', href: LINKS.CONTACT },
-]
 
 const menuVariants = {
   opened: {
@@ -31,8 +26,18 @@ const menuVariants = {
 }
 
 export const Header = () => {
+  const { locale = 'en' } = useRouter()
   const { t } = useTranslation('common')
   const { setFalse, setTrue, value } = useBoolean(false)
+
+  // @ts-ignore
+  const pagesForLocale = PAGES[locale]
+
+  const menuItems = [
+    { key: 'home', href: LINKS.HOME },
+    { key: 'howItWorks', href: pagesForLocale.HOW_IT_WORKS },
+    { key: 'contact', href: pagesForLocale.CONTACT },
+  ]
 
   return (
     <Container as="header">
@@ -44,8 +49,8 @@ export const Header = () => {
         maxWidth: '768px',
         width: '100%',
       } }>
-        <Grid sx={{ gridTemplateColumns: ['1fr auto', '1fr auto'], width: '100%' }}>
-          <TomatoroLogo />
+        <Grid sx={ { gridTemplateColumns: ['1fr auto', '1fr auto'], width: '100%' } }>
+          <TomatoroLogo/>
           <MenuButton
             aria-label={ t('header.toggle') }
             onClick={ () => setTrue() }
@@ -58,20 +63,20 @@ export const Header = () => {
         variants={ menuVariants }
         animate={ value ? 'opened' : 'closed' }
       >
-        <Flex sx={{
+        <Flex sx={ {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '1rem',
           margin: '0 auto',
           maxWidth: '768px',
           width: '100%',
-        }}>
-          <Grid sx={{ gridTemplateColumns: ['1fr auto', '1fr auto'], width: '100%' }}>
-            <TomatoroLogo />
+        } }>
+          <Grid sx={ { gridTemplateColumns: ['1fr auto', '1fr auto'], width: '100%' } }>
+            <TomatoroLogo/>
             <Close onClick={ () => setFalse() }/>
           </Grid>
         </Flex>
-        <Flex sx={{
+        <Flex sx={ {
           alignItems: 'center',
           backgroundColor: 'white',
           gap: '1rem',
@@ -79,7 +84,7 @@ export const Header = () => {
           padding: '1.5rem 0',
           borderBottom: '1px solid #eee',
           borderTop: '1px solid #eee',
-        }}>
+        } }>
           { menuItems.map((item) => (
             <NavLink key={ item.key } as={ Link } href={ item.href } onClick={ () => setFalse() }>
               <Text>
@@ -90,7 +95,7 @@ export const Header = () => {
           <Text sx={ { cursor: 'pointer', fontWeight: 'bold' } } onClick={ () => setFalse() }>
             { t('header.items.close') }
           </Text>
-          <LanguageSelector />
+          <LanguageSelector/>
         </Flex>
       </MotionNav>
     </Container>

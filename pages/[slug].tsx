@@ -10,8 +10,9 @@ import { getBanners, getPostBySlug } from '~/utils/cms.api'
 import { PAGES } from '~/utils/config'
 
 export const getStaticPaths = async () => {
-  const paths = Object.keys(PAGES).map((key) => ({
-    params: { slug: PAGES[key as keyof typeof PAGES] },
+  const pagesForDefaultLocale = PAGES['en']
+  const paths = Object.keys(pagesForDefaultLocale).map((key) => ({
+    params: { slug: pagesForDefaultLocale[key as keyof typeof pagesForDefaultLocale] },
   }))
 
   return {

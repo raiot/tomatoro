@@ -45,20 +45,24 @@ export const SEO = {
 }
 
 export const PAGES = {
-  TERMS: 'terms-of-service',
-  PRIVACY: 'privacy-notice',
-  FAQ: 'faq',
-  HOW_IT_WORKS: 'how-it-works',
-  CONTACT: 'contact',
+  en: {
+    TERMS: 'terms-of-service',
+    PRIVACY: 'privacy-notice',
+    FAQ: 'faq',
+    HOW_IT_WORKS: 'how-it-works',
+    CONTACT: 'contact',
+  },
+  es: {
+    TERMS: 'terminos-servicio',
+    PRIVACY: 'aviso-privacidad',
+    FAQ: 'preguntas-frecuentes',
+    HOW_IT_WORKS: 'como-funciona',
+    CONTACT: 'contacto',
+  },
 }
 
 export const LINKS = {
   HOME: '/',
-  TERMS: `/${ PAGES.TERMS }`,
-  PRIVACY: `/${ PAGES.PRIVACY }`,
-  FAQ: `/${ PAGES.FAQ }`,
-  HOW_IT_WORKS: `/${ PAGES.HOW_IT_WORKS }`,
-  CONTACT: `/${ PAGES.CONTACT }`,
   NEWS: '/news',
   SUPPORT: 'mailto:hello@tomatoro.com',
   GITHUB: 'https://github.com/tonymtz/tomatoro',

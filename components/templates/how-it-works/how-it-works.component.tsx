@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
 import { FC } from 'react'
 import { Box, Grid, Heading, Link as TuiLink, Paragraph } from 'theme-ui'
@@ -7,7 +8,7 @@ import { Box, Grid, Heading, Link as TuiLink, Paragraph } from 'theme-ui'
 import graphicRepeat from '~/public/svg/graphic-repeat.svg'
 import graphicSetTime from '~/public/svg/graphic-set-time.svg'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
-import { LINKS } from '~/utils/config'
+import { PAGES } from '~/utils/config'
 
 const sections = [
   { key: 'work', graphic: graphicSetTime },
@@ -16,6 +17,7 @@ const sections = [
 ]
 
 export const HowItWorks: FC = () => {
+  const { locale = 'en' } = useRouter()
   const { t } = useTranslation('home')
 
   return (
@@ -48,7 +50,8 @@ export const HowItWorks: FC = () => {
       </Box>
 
       <Box mx="auto">
-        <TuiLink as={ Link } href={ LINKS.HOW_IT_WORKS }>
+        {/* @ts-ignore */}
+        <TuiLink as={ Link } href={ PAGES[locale].HOW_IT_WORKS }>
           { t('howItWorks.cta') }
         </TuiLink>
       </Box>

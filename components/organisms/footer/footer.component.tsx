@@ -1,17 +1,55 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Flex, Heading, NavLink, Text } from 'theme-ui'
 
-import { footerData } from './footer.config'
+import { LINKS, PAGES } from '~/utils/config'
+
 import { Container, section, Section } from './footer.styles'
+import { FooterLink } from './footer.types'
 
 interface Props {
   version?: string
 }
 
 export const Footer: FC<Props> = ({ version }) => {
+  const { locale = 'en' } = useRouter()
   const { t } = useTranslation('common')
+
+  const footerData = useMemo(() => {
+    // @ts-ignore
+    const pagesForLocale = PAGES[locale]
+
+    const siteItems: FooterLink[] = [
+      { key: 'news', href: LINKS.NEWS },
+      { key: 'terms', href: pagesForLocale.TERMS },
+      { key: 'privacy', href: pagesForLocale.PRIVACY },
+      { key: 'github', href: LINKS.GITHUB },
+    ]
+
+    const supportItems: FooterLink[] = [
+      { key: 'faq', href: pagesForLocale.FAQ },
+      { key: 'status', href: LINKS.STATUS },
+      { key: 'contact', href: pagesForLocale.CONTACT },
+    ]
+
+    const toolItems: FooterLink[] = [
+      { key: 'tomatoro', href: LINKS.TOMATORO },
+      { key: 'mitrabajo', href: LINKS.MITRABAJO },
+      { key: 'dolar', href: LINKS.DOLAR },
+      { key: 'gatolinero', href: LINKS.GATOLINERO },
+    ]
+
+    return {
+      links: [
+        { key: 'site', items: siteItems },
+        { key: 'support', items: supportItems },
+        { key: 'moreTools', items: toolItems },
+      ],
+      currentYear: new Date().getFullYear(),
+    }
+  }, [locale])
 
   return (
     <Container as="footer">
