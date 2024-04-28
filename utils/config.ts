@@ -72,4 +72,4 @@ export const LINKS = {
   MITRABAJO: 'https://eslegalmitrabajo.com',
 }
 
-export const CMS_URL = 'https://cms-tomatoro.pozole.dev/api'
+export const CMS_URL = 'https://cms.tomatoro.com/api'
