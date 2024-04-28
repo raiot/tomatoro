@@ -94,3 +94,19 @@ type Banner = {
     updatedAt: string
   }
 }
+
+type Error404Page = {
+  id: string
+  attributes: {
+    title: string
+    content: string
+    locale: Locale
+    publishedAt: string
+    createdAt: string
+    updatedAt: string
+    hero: {
+      data: Image | null
+    }
+    seo: Seo | null
+  }
+}

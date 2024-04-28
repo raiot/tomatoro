@@ -8,6 +8,11 @@ interface CmsResponse<T> {
   meta: never;
 }
 
+interface CmsSingleEntryResponse<T> {
+  data: T;
+  meta: never;
+}
+
 axios.interceptors.request.use(
   config => {
     config.headers['Authorization'] = `Bearer ${ process.env.NEXT_PUBLIC_CMS_API_KEY }`
@@ -47,8 +52,8 @@ export const getBanners = async (location?: string, locale?: string) => {
   return obj.data
 }
 
-export const getSingleType = async <T>(locale?: string) => {
+export const getSingleType = async <T>(apiId: string, extraParams?: string, locale?: string) => {
   const localeParam = locale ? `&locale=${ locale }` : ''
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
-  return obj.data[0]
+  const { data: obj } = await axios.get<CmsSingleEntryResponse<T>>(`${ CMS_URL }/${ apiId }?${ extraParams }${ localeParam }`)
+  return obj.data
 }
