@@ -29,4 +29,6 @@ Sentry.init({
       maskAllText: false,
     }),
   ],
+
+  enabled: process.env.NODE_ENV !== 'development',
 })

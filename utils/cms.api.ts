@@ -46,3 +46,9 @@ export const getBanners = async (location?: string, locale?: string) => {
   const { data: obj } = await axios.get<CmsResponse<Banner>>(`${ CMS_URL }/banners?${ query }${ localeParam }`)
   return obj.data
 }
+
+export const getSingleType = async <T>(locale?: string) => {
+  const localeParam = locale ? `&locale=${ locale }` : ''
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
+  return obj.data[0]
+}

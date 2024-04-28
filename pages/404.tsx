@@ -8,7 +8,7 @@ import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
-import { getPostBySlug } from '~/utils/cms.api'
+import { getPostBySlug, getSingleType } from '~/utils/cms.api'
 
 const fallbackBlog: Post = {
   id: 99999,
@@ -24,13 +24,18 @@ const fallbackBlog: Post = {
   },
 }
 
+type Error404Page = {
+  id: string
+}
+
 export const getStaticProps: GetStaticProps<
   { page: Post },
   {}
 > = async () => {
-  let page = await getPostBySlug('error-404')
+  let page = await getSingleType<Error404Page>()
 
   if (!page) {
+    console.log('[DEBUG] NOT FOUND')
     page = fallbackBlog
   }
 
