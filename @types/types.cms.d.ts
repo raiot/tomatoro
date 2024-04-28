@@ -1,18 +1,5 @@
 type Locale = 'en' | 'es'
 
-type Blog = {
-  id: number
-  attributes: {
-    title: string
-    content: string
-    locale: string
-    publishedAt: string
-    createdAt: string
-    updatedAt: string
-    slug: string
-  }
-}
-
 type Category = {
   id: number
   attributes: {
@@ -25,17 +12,23 @@ type Category = {
 
 type Seo = {
   id: number
-  attributes: {
-    title: string
-    description: string
-    keywords: string
-    createdAt: string
-    updatedAt: string
-    locale: Locale
-    image: {
-      data: Image | null
-    }
+  metaTitle: string
+  metaDescription: string
+  keywords: string
+  metaRobots: string
+  structuredData: string
+  metaViewport: string
+  canonicalURL: string
+  metaImage: {
+    data: Image | null
   }
+}
+
+type Format = {
+  url: string
+  width: number
+  height: number
+  mime: number
 }
 
 type Image = {
@@ -48,43 +41,11 @@ type Image = {
     height: number
     url: string
     formats: {
-      thumbnail?: {
-        url: string
-        width: number
-        height: number
-      },
-      small?: {
-        url: string
-        width: number
-        height: number
-      }
-      medium?: {
-        url: string
-        width: number
-        height: number
-      }
-      large?: {
-        url: string
-        width: number
-        height: number
-      }
+      thumbnail?: Format
+      small?: Format
+      medium?: Format
+      large?: Format
     }
-  }
-}
-
-type StaticPage = {
-  id: number
-  attributes: {
-    title: string
-    content: string
-    excerpt: string
-    keywords: string
-    thumbnail?: {
-      data: Image | null
-    }
-    locale: string
-    createdAt: string
-    updatedAt: string
   }
 }
 
@@ -92,33 +53,19 @@ type Post = {
   id: number
   attributes: {
     title: string
+    slug: string
     content: string
-    excerpt: string
-    keywords: string
-    thumbnail?: {
-      data: Image | null
-    }
-    locale: string
     createdAt: string
     updatedAt: string
-    // title: string
-    // slug: string
-    // content: string
-    // excerpt: string
-    // keywords: string
-    // category: {
-    //   data: Category | null
-    // }
-    // hero?: {
-    //   data: Image | null
-    // }
-    // thumbnail?: {
-    //   data: Image | null
-    // }
-    // locale: string
-    // publishedAt: string
-    // createdAt: string
-    // updatedAt: string
+    publishedAt: string
+    locale: Locale
+    hero: {
+      data: Image | null
+    }
+    seo: Seo | null
+    category: {
+      data: Category | null
+    }
   }
 }
 

@@ -24,12 +24,12 @@ export const getPostBySlug = async (slug: string, locale?: string) => {
   }
 
   const localeParam = locale ? `&locale=${ locale }` : ''
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.image${ localeParam }`)
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
   return obj.data[0]
 }
 
 export const getAllPosts = async () => {
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category][title][$eq]=blogs`)
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category][id][$eq]=1`)
   return obj.data
 }
 

@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<
-  { post: StaticPage },
+  { post: Post },
   { slug: string }
 > = async ({ locale, params }) => {
   try {
@@ -41,18 +41,16 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-export default function PageBySlug ({ banners, post }: { post: StaticPage, banners: Banner[] }) {
+export default function PageBySlug ({ banners, post }: { post: Post, banners: Banner[] }) {
   if (!post) {
     return null
   }
 
-  console.log('[DEBUG] post', post)
-
   const seo = {
-    title: post.attributes.title,
-    description: post.attributes.excerpt,
-    keywords: post.attributes.keywords,
-    image: post.attributes.thumbnail?.data?.attributes.url,
+    title: post.attributes.seo?.metaTitle || post.attributes.title,
+    description: post.attributes.seo?.metaDescription || post.attributes.title,
+    keywords: post.attributes.seo?.keywords || '',
+    image: post.attributes.seo?.metaImage.data?.attributes.url || '',
   }
 
   return (
