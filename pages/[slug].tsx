@@ -6,12 +6,13 @@ import { BackCta } from '~/components/atoms/back-cta'
 import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
-import { getBanners, getStaticPage } from '~/utils/cms.api'
+import { getBanners, getPostBySlug } from '~/utils/cms.api'
 import { PAGES } from '~/utils/config'
 
 export const getStaticPaths = async () => {
-  const paths = Object.keys(PAGES).map((key) => ({
-    params: { slug: PAGES[key as keyof typeof PAGES] },
+  const pagesForDefaultLocale = PAGES['en']
+  const paths = Object.keys(pagesForDefaultLocale).map((key) => ({
+    params: { slug: pagesForDefaultLocale[key as keyof typeof pagesForDefaultLocale] },
   }))
 
   return {
@@ -21,13 +22,13 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<
-  { post: StaticPage },
+  { post: Post },
   { slug: string }
 > = async ({ locale, params }) => {
   try {
     const slug = params?.slug || ''
     const [post, banners] = await Promise.all([
-      getStaticPage(slug, locale),
+      getPostBySlug(slug, locale),
       getBanners(slug, locale),
     ])
 
@@ -41,16 +42,16 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-export default function PageBySlug ({ banners, post }: { post: StaticPage, banners: Banner[] }) {
+export default function PageBySlug ({ banners, post }: { post: Post, banners: Banner[] }) {
   if (!post) {
     return null
   }
 
   const seo = {
-    title: post.attributes.title,
-    description: post.attributes.excerpt,
-    keywords: post.attributes.keywords,
-    image: post.attributes.thumbnail?.data?.attributes.url,
+    title: post.attributes.seo?.metaTitle || post.attributes.title,
+    description: post.attributes.seo?.metaDescription || post.attributes.title,
+    keywords: post.attributes.seo?.keywords || '',
+    image: post.attributes.seo?.metaImage.data?.attributes.url || '',
   }
 
   return (

@@ -15,6 +15,52 @@ const nextConfig = {
     domains: ['res.cloudinary.com'],
   },
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: '/es/terms-of-service',
+        destination: '/es/terminos-servicio',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/privacy-notice',
+        destination: '/es/aviso-privacidad',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/faq',
+        destination: '/es/preguntas-frecuentes',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/how-it-works',
+        destination: '/es/como-funciona',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/contact',
+        destination: '/es/contacto',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/pricing',
+        destination: '/es/precios',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/dashboard',
+        destination: '/es/panel',
+        permanent: true,
+        locale: false,
+      }
+    ]
+  },
   async rewrites() {
     return [
       {

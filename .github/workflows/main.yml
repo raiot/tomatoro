@@ -40,6 +40,7 @@ jobs:
             NEXT_PUBLIC_POSTHOG_KEY=${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
             NEXT_PUBLIC_POSTHOG_HOST=${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
             NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+            NEXT_PUBLIC_CMS_API_KEY=${{ secrets.NEXT_PUBLIC_CMS_API_KEY }}
             SENTRY_DSN=${{ vars.SENTRY_DSN }}
 
       # Deploy to CapRover

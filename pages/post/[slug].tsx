@@ -33,10 +33,10 @@ export default function PostBySlug ({ post }: { post: Post }) {
 
   const showHero = !!post.attributes.hero?.data
   const seo = {
-    title: post.attributes.title,
-    description: post.attributes.excerpt,
-    keywords: post.attributes.keywords,
-    image: post.attributes.thumbnail?.data?.attributes.url,
+    title: post.attributes.seo?.metaTitle || post.attributes.title,
+    description: post.attributes.seo?.metaDescription || post.attributes.title,
+    keywords: post.attributes.seo?.keywords || '',
+    image: post.attributes.seo?.metaImage.data?.attributes.url || '',
   }
 
   return (

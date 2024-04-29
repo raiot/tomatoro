@@ -45,20 +45,28 @@ export const SEO = {
 }
 
 export const PAGES = {
-  TERMS: 'terms-of-service',
-  PRIVACY: 'privacy-notice',
-  FAQ: 'faq',
-  HOW_IT_WORKS: 'how-it-works',
-  CONTACT: 'contact',
+  en: {
+    TERMS: 'terms-of-service',
+    PRIVACY: 'privacy-notice',
+    FAQ: 'faq',
+    HOW_IT_WORKS: 'how-it-works',
+    CONTACT: 'contact',
+    DASHBOARD: 'dashboard',
+    PRICING: 'pricing',
+  },
+  es: {
+    TERMS: 'terminos-servicio',
+    PRIVACY: 'aviso-privacidad',
+    FAQ: 'preguntas-frecuentes',
+    HOW_IT_WORKS: 'como-funciona',
+    CONTACT: 'contacto',
+    DASHBOARD: 'panel',
+    PRICING: 'precios',
+  },
 }
 
 export const LINKS = {
   HOME: '/',
-  TERMS: `/${ PAGES.TERMS }`,
-  PRIVACY: `/${ PAGES.PRIVACY }`,
-  FAQ: `/${ PAGES.FAQ }`,
-  HOW_IT_WORKS: `/${ PAGES.HOW_IT_WORKS }`,
-  CONTACT: `/${ PAGES.CONTACT }`,
   NEWS: '/news',
   SUPPORT: 'mailto:hello@tomatoro.com',
   GITHUB: 'https://github.com/tonymtz/tomatoro',
@@ -69,6 +77,7 @@ export const LINKS = {
   CLIPPS: 'https://clipps.io',
   SONGBOX: 'https://songbox.io',
   GATOLINERO: 'https://t.me/GatolineroBot',
+  MITRABAJO: 'https://eslegalmitrabajo.com',
 }
 
-export const CMS_URL = 'https://cms-tomatoro.tepache.dev/api'
+export const CMS_URL = 'https://cms.tomatoro.com/api'

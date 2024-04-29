@@ -13,27 +13,33 @@ interface CmsSingleEntryResponse<T> {
   meta: never;
 }
 
-export const getStaticPage = async (slug: string, locale?: string) => {
+axios.interceptors.request.use(
+  config => {
+    config.headers['Authorization'] = `Bearer ${ process.env.NEXT_PUBLIC_CMS_API_KEY }`
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  },
+)
+
+export const getPostBySlug = async (slug: string, locale?: string) => {
   if (!isCleanInput(slug)) {
     throw new Error('Invalid slug')
   }
 
   const localeParam = locale ? `&locale=${ locale }` : ''
-  const { data: obj } = await axios.get<CmsSingleEntryResponse<StaticPage>>(`${ CMS_URL }/${ slug }?populate[0]=seo&populate[1]=seo.image${ localeParam }`)
-  return obj.data
-}
-
-export const getPostBySlug = async (slug: string) => {
-  if (!isCleanInput(slug)) {
-    throw new Error('Invalid slug')
-  }
-
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[1]=hero&populate[2]=seo&populate[3]=seo.image`)
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
   return obj.data[0]
 }
 
-export const getAllPosts = async () => {
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category][title][$eq]=blogs`)
+const localeToCategoryId = {
+  'en': 1,
+  'es': 5,
+}
+
+export const getAllPosts = async (locale: Locale) => {
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category]=${localeToCategoryId[locale]}&locale=${ locale }`)
   return obj.data
 }
 
@@ -48,5 +54,11 @@ export const getBanners = async (location?: string, locale?: string) => {
   const query = `filters[location][$in][0]=all&${ additionalLocation }sort=createdAt:desc&pagination[start]=0&pagination[limit]=1`
   const localeParam = locale ? `&locale=${ locale }` : ''
   const { data: obj } = await axios.get<CmsResponse<Banner>>(`${ CMS_URL }/banners?${ query }${ localeParam }`)
+  return obj.data
+}
+
+export const getSingleType = async <T>(apiId: string, extraParams?: string, locale?: string) => {
+  const localeParam = locale ? `&locale=${ locale }` : ''
+  const { data: obj } = await axios.get<CmsSingleEntryResponse<T>>(`${ CMS_URL }/${ apiId }?${ extraParams }${ localeParam }`)
   return obj.data
 }

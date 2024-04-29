@@ -8,36 +8,40 @@ import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
-import { getStaticPage } from '~/utils/cms.api'
+import { getSingleType } from '~/utils/cms.api'
 
-const fallbackBlog: StaticPage = {
-  id: 99999,
+const fallbackPage: Error404Page = {
+  id: 'fallback',
   attributes: {
     title: 'Oops! 🍅 Time\'s Up!',
     // eslint-disable-next-line max-len
     content: 'We couldn\'t find the page you\'re looking for.\n\nLet\'s get you back on track!\n\n[Return to Tomatoro Home](/)',
-    excerpt: '',
-    keywords: '',
     createdAt: '2023-04-29T00:35:43.151Z',
     updatedAt: '2023-04-29T00:40:25.617Z',
+    publishedAt: '2023-04-29T00:40:25.617Z',
     locale: 'en',
+    hero: {
+      data: null,
+    },
+    seo: null,
   },
 }
 
 export const getStaticProps: GetStaticProps<
-  { page: StaticPage },
+  { page: Error404Page },
   {}
-> = async () => {
-  let page = await getStaticPage('error-404')
+> = async ({ locale }) => {
+  const fieldParameters = ['seo', 'seo.metaImage', 'hero'].join('&populate[]=')
+  let page = await getSingleType<Error404Page>('error-404', fieldParameters, locale)
 
   if (!page) {
-    page = fallbackBlog
+    page = fallbackPage
   }
 
   return { props: { page } }
 }
 
-export default function Custom404 ({ page }: { page: StaticPage }) {
+export default function Custom404 ({ page }: { page: Post }) {
   return (
     <Page subtitle={ page.attributes.title }>
       <Screen>
