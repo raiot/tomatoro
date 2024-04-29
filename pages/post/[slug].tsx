@@ -45,7 +45,7 @@ export default function PostBySlug ({ post }: { post: Post }) {
         ) }
         <Grid variant="contained"
           sx={ {
-            gap: 4,
+            gap: 3,
             lineHeight: 2,
             justifyItems: 'start',
             paddingTop: showHero && 5,
