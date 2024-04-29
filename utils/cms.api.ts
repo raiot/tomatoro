@@ -28,8 +28,11 @@ export const getPostBySlug = async (slug: string, locale?: string) => {
     throw new Error('Invalid slug')
   }
 
+  console.log('[DEBUG] slug', slug)
+
   const localeParam = locale ? `&locale=${ locale }` : ''
   const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
+  console.log('[DEBUG] obj', obj)
   return obj.data[0]
 }
 

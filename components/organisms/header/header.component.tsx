@@ -113,6 +113,7 @@ const TomatoroLogo: FC = () => {
         width={ 150 }
         height={ 30 }
         aria-hidden
+        loading="lazy"
       />
       <Heading as="h1">{ t('header.title') }</Heading>
     </Link>

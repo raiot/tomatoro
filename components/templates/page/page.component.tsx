@@ -9,18 +9,11 @@ import { Footer } from '~/components/organisms/footer'
 import { Header } from '~/components/organisms/header'
 import { SEO, VERSION } from '~/utils/config'
 
-interface Seo {
-  title: string
-  description: string
-  keywords: string
-  image: string
-}
-
 interface PageProps {
   banners?: Banner[]
   children: React.ReactNode
   subtitle?: string
-  seo?: Partial<Seo>
+  seo?: Seo | null
 }
 
 const defaultTitle = `${ SEO.title } | ${ SEO.subtitle }`
@@ -34,10 +27,12 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
   const { asPath } = useRouter()
   const cleanPath = asPath.split('#')[0].split('?')[0]
 
-  const description = seo?.description || SEO.description
+  const description = seo?.metaDescription || SEO.description
   const keywords = seo?.keywords || SEO.keywords
-  const image = seo?.image || SEO.image
+  const image = seo?.metaImage.data?.attributes.url || SEO.image
   const url = SEO.url + cleanPath
+  const jsonLd = seo?.structuredData || {}
+  const metaRobots = seo?.metaRobots || 'index, follow'
 
   const composedTitle = useMemo(() => {
     let result = defaultTitle
@@ -46,12 +41,12 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
       result = `${ subtitle } | ${ SEO.title }`
     }
 
-    if (seo?.title) {
-      result = seo.title
+    if (seo?.metaTitle) {
+      result = seo.metaTitle
     }
 
     return result
-  }, [seo?.title, subtitle])
+  }, [seo?.metaTitle, subtitle])
 
   const origin =
     typeof window !== 'undefined' && window.location.origin
@@ -63,6 +58,7 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="icon" href="/favicon.ico"/>
+        <meta name="robots" content={ metaRobots }/>
         <title>{ composedTitle }</title>
         <meta name="title" content={ composedTitle }/>
         <meta name="description" content={ description }/>
@@ -75,14 +71,18 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
         <meta name="twitter:title" content={ composedTitle }/>
         <meta name="twitter:description" content={ description }/>
         <meta name="twitter:image" content={ image }/>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={ { __html: JSON.stringify(jsonLd) } }
+        />
       </Head>
 
-      {/* Warning appears only in client. It might cause issues with SSR */}
+      {/* Warning appears only in client. It might cause issues with SSR */ }
       { isClient && shouldShowUnstableWarning(origin) && (<UnstableWarning/>) }
 
       <Header/>
 
-      {/* Banners appears only in client. It might cause issues with SSR */}
+      {/* Banners appears only in client. It might cause issues with SSR */ }
       { isClient && banners && <Banners banners={ banners }/> }
 
       { children }
