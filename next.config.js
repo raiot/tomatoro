@@ -46,6 +46,18 @@ const nextConfig = {
         destination: '/es/contacto',
         permanent: true,
         locale: false,
+      },
+      {
+        source: '/es/pricing',
+        destination: '/es/precios',
+        permanent: true,
+        locale: false,
+      },
+      {
+        source: '/es/dashboard',
+        destination: '/es/panel',
+        permanent: true,
+        locale: false,
       }
     ]
   },

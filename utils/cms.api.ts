@@ -33,8 +33,13 @@ export const getPostBySlug = async (slug: string, locale?: string) => {
   return obj.data[0]
 }
 
-export const getAllPosts = async () => {
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category][id][$eq]=1`)
+const localeToCategoryId = {
+  'en': 1,
+  'es': 5,
+}
+
+export const getAllPosts = async (locale: Locale) => {
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category]=${localeToCategoryId[locale]}&locale=${ locale }`)
   return obj.data
 }
 

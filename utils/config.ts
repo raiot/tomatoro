@@ -51,6 +51,8 @@ export const PAGES = {
     FAQ: 'faq',
     HOW_IT_WORKS: 'how-it-works',
     CONTACT: 'contact',
+    DASHBOARD: 'dashboard',
+    PRICING: 'pricing',
   },
   es: {
     TERMS: 'terminos-servicio',
@@ -58,6 +60,8 @@ export const PAGES = {
     FAQ: 'preguntas-frecuentes',
     HOW_IT_WORKS: 'como-funciona',
     CONTACT: 'contacto',
+    DASHBOARD: 'panel',
+    PRICING: 'precios',
   },
 }
 

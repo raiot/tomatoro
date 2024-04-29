@@ -39,7 +39,11 @@ function generateSiteMap ({ domain, posts, staticPages }: SiteMapData) {
 export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
   try {
     const staticPages = getAllStaticPages()
-    const posts = await getAllPosts()
+    const [postsEn, postsEs] = await Promise.all([
+      getAllPosts('en'),
+      getAllPosts('es'),
+    ])
+    const posts = [...postsEn, ...postsEs]
     const sitemap = generateSiteMap({
       posts,
       domain: 'https://tomatoro.com',
@@ -54,6 +58,7 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
       props: {},
     }
   } catch (e) {
+    console.log('[DEBUG] e', e)
     throw new Error('[getServerSideProps] sitemap')
   }
 }
