@@ -7,5 +7,6 @@ export const Hero = styled.div`
   width: 100vw;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  background-position: center center;
 `

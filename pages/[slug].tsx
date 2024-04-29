@@ -3,6 +3,7 @@ import React from 'react'
 import { Grid, Heading } from 'theme-ui'
 
 import { BackCta } from '~/components/atoms/back-cta'
+import { Hero } from '~/components/atoms/hero'
 import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
@@ -47,18 +48,28 @@ export default function PageBySlug ({ banners, post }: { post: Post, banners: Ba
     return null
   }
 
+  const showHero = !!post.attributes.hero?.data
+
   return (
     <Page
       banners={ banners }
       subtitle={ post.attributes.title }
       seo={ post.attributes.seo }
     >
-      <Screen>
+      <Screen pt={ showHero && 'inherit !important' }>
+        { showHero && (
+          <Hero
+            sx={ { backgroundImage: `url(${ post.attributes.hero!.data!.attributes.url })` } }
+            role="img"
+            aria-label={ post.attributes.hero!.data!.attributes.caption }
+          />
+        ) }
         <Grid variant="contained"
           sx={ {
             gap: 3,
             lineHeight: 2,
             justifyItems: 'start',
+            paddingTop: showHero && 5,
           } }>
           <Heading as="h1">{ post.attributes.title }</Heading>
           <RichTextRenderer content={ post.attributes.content }/>
