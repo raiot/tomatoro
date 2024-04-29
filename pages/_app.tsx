@@ -4,7 +4,7 @@ import Posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 import { useEffect } from 'react'
 import { ThemeProvider } from 'theme-ui'
-import { useEffectOnce, useLocalStorage } from 'usehooks-ts'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { getTheme, globalStyles } from '~/components/themes'
 import {
@@ -25,7 +25,7 @@ export default function App ({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const [theme] = useLocalStorage('theme', 'light')
 
-  useEffectOnce(() => {
+  useEffect(() => {
     // Track page views
     const handleRouteChange = () => Posthog?.capture('$pageview')
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -35,7 +35,7 @@ export default function App ({ Component, pageProps }: AppProps) {
     }
   })
 
-  useEffectOnce((() => {
+  useEffect((() => {
     // Temporal fix for uninstalling previous worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then(registration => {

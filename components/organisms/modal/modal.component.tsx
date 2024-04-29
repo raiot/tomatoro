@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Heading, Paragraph } from 'theme-ui'
-import { useEventListener, useLockedBody, useOnClickOutside } from 'usehooks-ts'
+import { useEventListener, useOnClickOutside, useScrollLock } from 'usehooks-ts'
 
 import {
   Backdrop,
@@ -27,6 +27,7 @@ const ModalComponent: FC<Props> = ({
   show,
 }) => {
   const modalRef = useRef(null)
+  const { lock, unlock } = useScrollLock()
 
   const onEscKey = (event: { key: string }) => {
     if (event.key === 'Escape') {
@@ -36,7 +37,10 @@ const ModalComponent: FC<Props> = ({
 
   useEventListener('keyup', onEscKey, modalRef)
 
-  useLockedBody(show, 'root')
+  useEffect(() => {
+    show && lock()
+    return () => unlock()
+  }, [lock, show, unlock])
 
   useOnClickOutside(modalRef, () => {
     setToggled()
