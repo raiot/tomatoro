@@ -4,7 +4,10 @@ import { getAllPosts } from '~/utils/cms.api'
 import { getAllStaticPages } from '~/utils/data.api'
 
 interface SiteMapData {
-  posts: Post[]
+  posts: {
+    en: Post[]
+    es: Post[]
+  }
   domain: string
   staticPages: Array<{ slug: string }>
 }
@@ -25,9 +28,16 @@ function generateSiteMap ({ domain, posts, staticPages }: SiteMapData) {
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>`).join('') }
-     ${ posts.map(({ attributes: { slug, updatedAt } }) => `
+     ${ posts.en.map(({ attributes: { slug, updatedAt } }) => `
         <url>
             <loc>${ `${ domain }/post/${ slug }` }</loc>
+            <lastmod>${ updatedAt }</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>`).join('') }
+     ${ posts.es.map(({ attributes: { slug, updatedAt } }) => `
+        <url>
+            <loc>${ `${ domain }/es/post/${ slug }` }</loc>
             <lastmod>${ updatedAt }</lastmod>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
@@ -43,9 +53,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
       getAllPosts('en'),
       getAllPosts('es'),
     ])
-    const posts = [...postsEn, ...postsEs]
     const sitemap = generateSiteMap({
-      posts,
+      posts: { en: postsEn, es: postsEs } ,
       domain: 'https://tomatoro.com',
       staticPages,
     })
