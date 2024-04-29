@@ -7,9 +7,9 @@ import { PostsList } from '~/components/molecules/posts-list'
 import { Page } from '~/components/templates/page'
 import { getAllPosts } from '~/utils/cms.api'
 
-export const getServerSideProps: GetServerSideProps<{}> = async () => {
+export const getServerSideProps: GetServerSideProps<{}> = async ({ locale = 'en' }) => {
   try {
-    const posts = await getAllPosts()
+    const posts = await getAllPosts(locale as Locale)
     return { props: { posts } }
   } catch (e) {
     throw new Error('[getServerSideProps] getAllPosts')
