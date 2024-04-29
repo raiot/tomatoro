@@ -12,9 +12,9 @@ import { getPostBySlug } from '~/utils/cms.api'
 export const getServerSideProps: GetServerSideProps<
   { post: Post },
   { slug: string }
-> = async ({ params }) => {
+> = async ({ locale,params }) => {
   try {
-    const post = await getPostBySlug(params?.slug || '')
+    const post = await getPostBySlug(params?.slug || '', locale)
 
     if (!post) {
       return { notFound: true }
@@ -32,15 +32,9 @@ export default function PostBySlug ({ post }: { post: Post }) {
   }
 
   const showHero = !!post.attributes.hero?.data
-  const seo = {
-    title: post.attributes.seo?.metaTitle || post.attributes.title,
-    description: post.attributes.seo?.metaDescription || post.attributes.title,
-    keywords: post.attributes.seo?.keywords || '',
-    image: post.attributes.seo?.metaImage.data?.attributes.url || '',
-  }
 
   return (
-    <Page subtitle={ post.attributes.title } seo={ seo }>
+    <Page subtitle={ post.attributes.title } seo={ post.attributes.seo }>
       <Screen pt={ showHero && 'inherit !important' }>
         { showHero && (
           <Hero

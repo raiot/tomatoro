@@ -47,18 +47,11 @@ export default function PageBySlug ({ banners, post }: { post: Post, banners: Ba
     return null
   }
 
-  const seo = {
-    title: post.attributes.seo?.metaTitle || post.attributes.title,
-    description: post.attributes.seo?.metaDescription || post.attributes.title,
-    keywords: post.attributes.seo?.keywords || '',
-    image: post.attributes.seo?.metaImage.data?.attributes.url || '',
-  }
-
   return (
     <Page
       banners={ banners }
       subtitle={ post.attributes.title }
-      seo={ seo }
+      seo={ post.attributes.seo }
     >
       <Screen>
         <Grid variant="contained"
