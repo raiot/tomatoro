@@ -58,7 +58,6 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
       props: {},
     }
   } catch (e) {
-    console.log('[DEBUG] e', e)
     throw new Error('[getServerSideProps] sitemap')
   }
 }
