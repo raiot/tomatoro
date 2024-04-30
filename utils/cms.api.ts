@@ -57,6 +57,12 @@ export const getBanners = async (location?: string, locale?: string) => {
   return obj.data
 }
 
+export const getQuestions = async (locale?: string) => {
+  const localeParam = locale ? `?locale=${ locale }` : ''
+  const { data: obj } = await axios.get<CmsResponse<Question>>(`${ CMS_URL }/questions${ localeParam }`)
+  return obj.data
+}
+
 export const getSingleType = async <T>(apiId: string, extraParams?: string, locale?: string) => {
   const localeParam = locale ? `&locale=${ locale }` : ''
   const { data: obj } = await axios.get<CmsSingleEntryResponse<T>>(`${ CMS_URL }/${ apiId }?${ extraParams }${ localeParam }`)

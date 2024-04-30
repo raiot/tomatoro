@@ -36,6 +36,12 @@ const nextConfig = {
         locale: false,
       },
       {
+        source: '/en/preguntas-frecuentes',
+        destination: '/faq',
+        permanent: true,
+        locale: false,
+      },
+      {
         source: '/es/how-it-works',
         destination: '/es/como-funciona',
         permanent: true,
