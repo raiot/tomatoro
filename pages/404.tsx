@@ -10,7 +10,7 @@ import { Page } from '~/components/templates/page'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
 import { getSingleType } from '~/utils/cms.api'
 
-const fallbackPage: Error404Page = {
+const fallbackPage: BasicPage = {
   id: 'fallback',
   attributes: {
     title: 'Oops! 🍅 Time\'s Up!',
@@ -28,11 +28,11 @@ const fallbackPage: Error404Page = {
 }
 
 export const getStaticProps: GetStaticProps<
-  { page: Error404Page },
+  { page: BasicPage },
   {}
 > = async ({ locale }) => {
   const fieldParameters = ['seo', 'seo.metaImage', 'hero'].join('&populate[]=')
-  let page = await getSingleType<Error404Page>('error-404', fieldParameters, locale)
+  let page = await getSingleType<BasicPage>('error-404', fieldParameters, locale)
 
   if (!page) {
     page = fallbackPage

@@ -121,6 +121,17 @@ export const defaultTheme: Theme = {
       maxWidth,
     },
   },
+  cards: {
+    primary: {
+      padding: 4,
+      borderRadius: 2,
+      border: '1px solid #ddd',
+    },
+    question: {
+      pt: 4,
+      borderTop: '1px solid #ddd',
+    },
+  },
   styles: {
     a: {
       borderBottom: '1px solid',

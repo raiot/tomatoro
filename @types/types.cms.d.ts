@@ -95,7 +95,19 @@ type Banner = {
   }
 }
 
-type Error404Page = {
+type Question = {
+  id: number
+  attributes: {
+    question: string
+    locale: string
+    publishedAt: string
+    createdAt: string
+    updatedAt: string
+    content: string
+  }
+}
+
+type BasicPage = {
   id: string
   attributes: {
     title: string

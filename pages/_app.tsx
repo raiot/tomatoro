@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 import { useEffect } from 'react'
-import { ThemeProvider } from 'theme-ui'
+import { ThemeUIProvider } from 'theme-ui'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { getTheme, globalStyles } from '~/components/themes'
@@ -69,7 +69,7 @@ export default function App ({ Component, pageProps }: AppProps) {
 
   return (
     <PostHogProvider client={ Posthog }>
-      <ThemeProvider theme={ getTheme(theme) }>
+      <ThemeUIProvider theme={ getTheme(theme) }>
         <NotificationsProvider>
           <TimerProvider>
             { globalStyles }
@@ -77,7 +77,7 @@ export default function App ({ Component, pageProps }: AppProps) {
             <Component { ...pageProps } />
           </TimerProvider>
         </NotificationsProvider>
-      </ThemeProvider>
+      </ThemeUIProvider>
     </PostHogProvider>
   )
 }
