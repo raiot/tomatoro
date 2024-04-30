@@ -55,13 +55,13 @@ export const PAGES = {
     PRICING: 'pricing',
   },
   es: {
-    TERMS: 'terminos-servicio',
-    PRIVACY: 'aviso-privacidad',
-    FAQ: 'preguntas-frecuentes',
-    HOW_IT_WORKS: 'como-funciona',
-    CONTACT: 'contacto',
-    DASHBOARD: 'panel',
-    PRICING: 'precios',
+    TERMS: '/es/terminos-servicio',
+    PRIVACY: '/es/aviso-privacidad',
+    FAQ: '/es/preguntas-frecuentes',
+    HOW_IT_WORKS: '/es/como-funciona',
+    CONTACT: '/es/contacto',
+    DASHBOARD: '/es/panel',
+    PRICING: '/es/precios',
   },
 }
 
