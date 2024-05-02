@@ -64,7 +64,12 @@ const nextConfig = {
         destination: '/es/panel',
         permanent: true,
         locale: false,
-      }
+      },
+      {
+        source: '/post/:slug',
+        destination: '/blog/:slug',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {
