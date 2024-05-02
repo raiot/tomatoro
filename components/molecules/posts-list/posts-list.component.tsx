@@ -18,7 +18,7 @@ export const PostsList: FC<Props> = ({ posts }) => {
           <Heading as="h4">
             <Date dateString={ post.attributes.publishedAt }/>
           </Heading>
-          <TuiLink as={ Link } href={ `/post/${ post.attributes.slug }` }>
+          <TuiLink as={ Link } href={ `/blog/${ post.attributes.slug }` }>
             { post.attributes.title }
           </TuiLink>
         </ListItem>

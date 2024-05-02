@@ -30,14 +30,14 @@ function generateSiteMap ({ domain, posts, staticPages }: SiteMapData) {
         </url>`).join('') }
      ${ posts.en.map(({ attributes: { slug, updatedAt } }) => `
         <url>
-            <loc>${ `${ domain }/post/${ slug }` }</loc>
+            <loc>${ `${ domain }/blog/${ slug }` }</loc>
             <lastmod>${ updatedAt }</lastmod>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>`).join('') }
      ${ posts.es.map(({ attributes: { slug, updatedAt } }) => `
         <url>
-            <loc>${ `${ domain }/es/post/${ slug }` }</loc>
+            <loc>${ `${ domain }/es/blog/${ slug }` }</loc>
             <lastmod>${ updatedAt }</lastmod>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
