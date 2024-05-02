@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
 import { Box, Divider } from 'theme-ui'
@@ -18,7 +19,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async () => {
     const banners = await getBanners('home')
     return { props: { banners } }
   } catch (e) {
-    throw new Error('[getServerSideProps] getBanners')
+    Sentry.captureException(e)
+    return { props: { banners: [] } }
   }
 }
 

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
 import { Grid, Heading } from 'theme-ui'
@@ -20,11 +21,17 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ locale }) => 
     ])
     return { props: { questions, page } }
   } catch (e) {
-    throw new Error('[getServerSideProps] getUpdates')
+    Sentry.captureException(e)
+    return { props: { questions: [], page: null } }
   }
 }
 
-export default function Faq ({ page, questions }: { page: BasicPage, questions: Question[] }) {
+interface RouteProps {
+  questions: Question[]
+  page: BasicPage | null
+}
+
+export default function Faq ({ page, questions }: RouteProps) {
   if (!page) {
     return null
   }

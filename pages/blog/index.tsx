@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
 import { Grid, Heading } from 'theme-ui'
@@ -12,7 +13,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ locale = 'en'
     const posts = await getAllPosts(locale as Locale)
     return { props: { posts } }
   } catch (e) {
-    throw new Error('[getServerSideProps] getAllPosts')
+    Sentry.captureException(e)
+    return { props: { posts: [] } }
   }
 }
 

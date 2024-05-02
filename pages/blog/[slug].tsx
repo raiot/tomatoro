@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
 import { Grid, Heading } from 'theme-ui'
@@ -22,6 +23,7 @@ export const getServerSideProps: GetServerSideProps<
 
     return { props: { post } }
   } catch (e) {
+    Sentry.captureException(e)
     return { notFound: true }
   }
 }

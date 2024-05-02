@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
@@ -15,7 +16,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ locale }) => 
     const sortedUpdates = updates.sort((a, b) => b.attributes.date.localeCompare(a.attributes.date))
     return { props: { updates: sortedUpdates } }
   } catch (e) {
-    throw new Error('[getServerSideProps] getUpdates')
+    Sentry.captureException(e)
+    return { props: { updates: [] } }
   }
 }
 
