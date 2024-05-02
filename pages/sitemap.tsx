@@ -23,7 +23,7 @@ function generateSiteMap ({ domain, posts, staticPages }: SiteMapData) {
       </url>
      ${ staticPages.map(({ slug }) => `
         <url>
-            <loc>${ `${ domain }/${ slug }` }</loc>
+            <loc>${ `${ domain }${ slug }` }</loc>
             <lastmod>${ new Date().toISOString() }</lastmod>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>

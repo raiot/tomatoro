@@ -46,13 +46,13 @@ export const SEO = {
 
 export const PAGES = {
   en: {
-    TERMS: 'terms-of-service',
-    PRIVACY: 'privacy-notice',
-    FAQ: 'faq',
-    HOW_IT_WORKS: 'how-it-works',
-    CONTACT: 'contact',
-    DASHBOARD: 'dashboard',
-    PRICING: 'pricing',
+    TERMS: '/terms-of-service',
+    PRIVACY: '/privacy-notice',
+    FAQ: '/faq',
+    HOW_IT_WORKS: '/how-it-works',
+    CONTACT: '/contact',
+    DASHBOARD: '/dashboard',
+    PRICING: '/pricing',
   },
   es: {
     TERMS: '/es/terminos-servicio',
