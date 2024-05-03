@@ -1,6 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useRef } from 'react'
 
 import { useNotificationsContext } from '~/contexts/notifications'
+import { useIntervalsStore } from '~/stores/intervals'
 import { useSettingsStore } from '~/stores/settings'
 import { useTimerStore } from '~/stores/time'
 import { NOTIFICATION } from '~/utils/config'
@@ -25,6 +26,7 @@ export const useTimerContext = () => {
 
 export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { notify } = useNotificationsContext()
+  const { addInterval } = useIntervalsStore()
   const { reset, setTotalTime, start, stop, tick, time } = useTimerStore()
   const [currentSegment, workLength, shortLength, longLength] = useSettingsStore(state => [
     state.currentSegment,
@@ -58,9 +60,12 @@ export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   useEffect(() => {
     if (time < 1) {
       onStopTimer()
+      addInterval({
+        type: currentSegment,
+      })
       notify(NOTIFICATION)
     }
-  }, [notify, onStopTimer, time])
+  }, [addInterval, currentSegment, notify, onStopTimer, time])
 
   const onSegmentChange = useCallback((totalTime: number) => {
     setTotalTime(totalTime)
