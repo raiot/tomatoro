@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import React from 'react'
@@ -14,8 +15,7 @@ const fallbackPage: BasicPage = {
   id: 'fallback',
   attributes: {
     title: 'Oops! 🍅 Time\'s Up!',
-    // eslint-disable-next-line max-len
-    content: 'We couldn\'t find the page you\'re looking for.\n\nLet\'s get you back on track!\n\n[Return to Tomatoro Home](/)',
+    content: 'We couldn\'t find the page you\'re looking for.\n\nLet\'s get you back on track!\n',
     createdAt: '2023-04-29T00:35:43.151Z',
     updatedAt: '2023-04-29T00:40:25.617Z',
     publishedAt: '2023-04-29T00:40:25.617Z',
@@ -31,14 +31,19 @@ export const getStaticProps: GetStaticProps<
   { page: BasicPage },
   {}
 > = async ({ locale }) => {
-  const fieldParameters = ['seo', 'seo.metaImage', 'hero'].join('&populate[]=')
-  let page = await getSingleType<BasicPage>('error-404', fieldParameters, locale)
+  try {
+    const fieldParameters = ['seo', 'seo.metaImage', 'hero'].join('&populate[]=')
+    let page = await getSingleType<BasicPage>('error-404', fieldParameters, locale)
 
-  if (!page) {
-    page = fallbackPage
+    if (!page) {
+      page = fallbackPage
+    }
+
+    return { props: { page } }
+  } catch (e) {
+    Sentry.captureException(e)
+    return { props: { page: fallbackPage } }
   }
-
-  return { props: { page } }
 }
 
 export default function Custom404 ({ page }: { page: Post }) {

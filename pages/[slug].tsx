@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetStaticProps } from 'next'
 import React from 'react'
 import { Grid, Heading } from 'theme-ui'
@@ -39,6 +40,7 @@ export const getStaticProps: GetStaticProps<
 
     return { props: { post, banners } }
   } catch (e) {
+    Sentry.captureException(e)
     return { notFound: true }
   }
 }

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 
 import { getAllPosts } from '~/utils/cms.api'
@@ -54,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
       getAllPosts('es'),
     ])
     const sitemap = generateSiteMap({
-      posts: { en: postsEn, es: postsEs } ,
+      posts: { en: postsEn, es: postsEs },
       domain: 'https://tomatoro.com',
       staticPages,
     })
@@ -67,7 +68,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
       props: {},
     }
   } catch (e) {
-    throw new Error('[getServerSideProps] sitemap')
+    Sentry.captureException(e)
+    return { props: {} }
   }
 }
 
