@@ -19,6 +19,12 @@ export const TomatoCounter: FC = () => {
     return null
   }
 
+  function resetIntervalsRequested () {
+    if (window.confirm('Do you want to reset your tomato counter? This action cannot be undone.')) {
+      resetIntervals()
+    }
+  }
+
   return (
     <Flex sx={ { gap: '1em', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' } }>
       <Heading as="h4" variant="text.paragraph">
@@ -29,7 +35,7 @@ export const TomatoCounter: FC = () => {
         { intervals.map(createTomatoForInterval) }
       </Flex>
 
-      <Button onClick={ resetIntervals }>
+      <Button onClick={ resetIntervalsRequested }>
         Restart
       </Button>
     </Flex>
