@@ -1,24 +1,18 @@
 import useTranslation from 'next-translate/useTranslation'
 import { FC } from 'react'
-import { Button, Card, Flex, Heading, Paragraph } from 'theme-ui'
+import { Button, Flex, Heading } from 'theme-ui'
 
-import { Popup } from '~/components/atoms/popup'
-import { Tomato } from '~/components/atoms/tomato'
-import { Interval, useIntervalsStore } from '~/stores/intervals'
-import { SegmentType } from '~/utils/config'
-
-const popupBody: Record<SegmentType, string> = {
-  WORK: 'popup.work',
-  SHORT: 'popup.short',
-  LONG: 'popup.long',
-}
+import { TomatoCounterSkeleton } from '~/components/molecules/tomato-counter/tomato-counter-skeleton.component'
+import { useCreateTomatoForInterval } from '~/components/molecules/tomato-counter/tomato-counter.utils'
+import { useIntervalsStore } from '~/stores/intervals'
 
 export const TomatoCounter: FC = () => {
   const { t } = useTranslation('timer')
   const { intervals, resetIntervals } = useIntervalsStore()
+  const { createTomatoForInterval } = useCreateTomatoForInterval()
 
   if (intervals.length === 0) {
-    return null
+    return <TomatoCounterSkeleton/>
   }
 
   function resetIntervalsRequested () {
@@ -27,28 +21,10 @@ export const TomatoCounter: FC = () => {
     }
   }
 
-  function createTomatoForInterval (interval: Interval, index: number) {
-    return (
-      <Popup
-        key={ `${ interval.type }-${ index }` }
-        content={ (
-          <Card variant="popup">
-            <Paragraph variant="text.popup">{ t(popupBody[interval.type]) }</Paragraph>
-          </Card>
-        ) }
-      >
-        <Tomato
-          height={ 28 }
-          type={ interval.type }
-        />
-      </Popup>
-    )
-  }
-
   return (
     <Flex sx={ { gap: '1em', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' } }>
       <Heading as="h4" variant="text.paragraph">
-        { t('yourDay') }
+        { t('title') }
       </Heading>
 
       <Flex sx={ { gap: '0.25em' } }>

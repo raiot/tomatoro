@@ -94,8 +94,7 @@ export const defaultTheme: Theme = {
         opacity: 0.4,
       },
       '&:disabled': {
-        opacity: 0.4,
-        bg: 'primary',
+        opacity: 0.3,
       },
     },
   },

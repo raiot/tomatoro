@@ -13,7 +13,7 @@ export const NOTIFICATION: NotificationPayload = {
 }
 
 export const WORKER = {
-  tick: 1000,
+  tick: 100,
 }
 
 export type SegmentType = 'WORK' | 'SHORT' | 'LONG'
