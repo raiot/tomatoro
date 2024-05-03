@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation'
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 import { Button, Card, Flex, Heading, Paragraph } from 'theme-ui'
 
 import { Popup } from '~/components/atoms/popup'
