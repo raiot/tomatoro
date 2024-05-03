@@ -5,7 +5,6 @@ import React from 'react'
 import { Flex, Grid, Heading } from 'theme-ui'
 
 import { BackCta } from '~/components/atoms/back-cta'
-import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import graphicTakeBreak from '~/public/svg/graphic-take-break.svg'
@@ -48,26 +47,24 @@ export const getStaticProps: GetStaticProps<
 
 export default function Custom404 ({ page }: { page: Post }) {
   return (
-    <Page subtitle={ page.attributes.title }>
-      <Screen>
-        <Grid variant="contained" columns={ 2 }>
-          <Grid gap={ 3 } sx={ { justifyItems: 'start' } }>
-            <Heading as="h1">{ page.attributes.title }</Heading>
-            <div>
-              <RichTextRenderer content={ page.attributes.content }/>
-            </div>
-            <BackCta/>
-          </Grid>
-          <Flex sx={ { justifyContent: 'center' } }>
-            <Image
-              src={ graphicTakeBreak }
-              alt="Tomato taking a break"
-              width={ 180 }
-              height={ 180 }
-            />
-          </Flex>
+    <Page subtitle={ page.attributes.title } isWrapped>
+      <Grid variant="contained" columns={ 2 }>
+        <Grid gap={ 3 } sx={ { justifyItems: 'start' } }>
+          <Heading as="h1">{ page.attributes.title }</Heading>
+          <div>
+            <RichTextRenderer content={ page.attributes.content }/>
+          </div>
+          <BackCta/>
         </Grid>
-      </Screen>
+        <Flex sx={ { justifyContent: 'center' } }>
+          <Image
+            src={ graphicTakeBreak }
+            alt="Tomato taking a break"
+            width={ 180 }
+            height={ 180 }
+          />
+        </Flex>
+      </Grid>
     </Page>
   )
 }

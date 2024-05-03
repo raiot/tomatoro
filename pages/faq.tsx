@@ -4,9 +4,7 @@ import React from 'react'
 import { Grid, Heading } from 'theme-ui'
 
 import { BackCta } from '~/components/atoms/back-cta'
-import { Hero } from '~/components/atoms/hero'
 import { QuestionCard } from '~/components/atoms/question-card'
-import { Screen } from '~/components/atoms/screen'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import { getQuestions, getSingleType } from '~/utils/cms.api'
@@ -36,45 +34,41 @@ export default function Faq ({ page, questions }: RouteProps) {
     return null
   }
 
-  const showHero = !!page.attributes.hero?.data
+  const showHero = !!page.attributes.hero?.data?.attributes.url
 
   return (
     <Page
+      hero={ {
+        imageUrl: page.attributes.hero?.data?.attributes.url,
+        caption: page.attributes.hero?.data?.attributes.caption,
+      } }
       subtitle={ page.attributes.title }
       //@ts-ignore
       seo={ {
         ...page.attributes.seo,
         structuredData: JSON.stringify(createFaqStructuredData(questions)),
       } }
+      isWrapped
     >
-      <Screen pt={ showHero && 'inherit !important' }>
-        { showHero && (
-          <Hero
-            sx={ { backgroundImage: `url(${ page.attributes.hero!.data!.attributes.url })` } }
-            role="img"
-            aria-label={ page.attributes.hero!.data!.attributes.caption }
-          />
-        ) }
-        <Grid
-          variant="contained"
-          sx={ {
-            gap: 3,
-            lineHeight: 2,
-            justifyItems: 'start',
-            paddingTop: showHero && 5,
-          } }>
-          <Heading as="h1">{ page.attributes.title }</Heading>
-          <RichTextRenderer content={ page.attributes.content }/>
+      <Grid
+        variant="contained"
+        sx={ {
+          gap: 3,
+          lineHeight: 2,
+          justifyItems: 'start',
+          paddingTop: showHero && 5,
+        } }>
+        <Heading as="h1">{ page.attributes.title }</Heading>
+        <RichTextRenderer content={ page.attributes.content }/>
 
-          { questions.map((question) => (
-            <QuestionCard key={ question.attributes.question }
-              question={ question.attributes.question }
-              answer={ question.attributes.content }/>
-          )) }
+        { questions.map((question) => (
+          <QuestionCard key={ question.attributes.question }
+            question={ question.attributes.question }
+            answer={ question.attributes.content }/>
+        )) }
 
-          <BackCta/>
-        </Grid>
-      </Screen>
+        <BackCta/>
+      </Grid>
     </Page>
   )
 }
