@@ -1,23 +1,35 @@
-import { FC, useMemo } from 'react'
-import { Button, Flex } from 'theme-ui'
+import { FC } from 'react'
+import { Button, Flex, Heading } from 'theme-ui'
 
-import { Interval, useIntervalsStore } from '~/stores/intervals'
+import { Tomato } from '~/components/atoms/tomato'
+import { useIntervalsStore } from '~/stores/intervals'
 
 export const TomatoCounter: FC = () => {
-  const { intervals, lastReset, resetIntervals } = useIntervalsStore()
-  const workIntervals = useMemo(() => intervals.filter(isWorkInterval).length, [intervals])
+  const { intervals, resetIntervals } = useIntervalsStore()
+
+  if (intervals.length === 0) {
+    return null
+  }
 
   return (
-    <Flex sx={ { gap: '1em', justifyContent: 'center' } }>
-      <h3>Tomatoros: { workIntervals }</h3>
+    <Flex sx={ { gap: '1em', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' } }>
+      <Heading as="h4" variant="text.paragraph">
+        Your day:
+      </Heading>
+
+      <Flex sx={ { gap: '0.25em' } }>
+        { intervals.map((interval, index) => (
+          <Tomato
+            key={ `${ interval.type }-${ index }` }
+            height={ 28 }
+            type={ interval.type }
+          />
+        )) }
+      </Flex>
+
       <Button onClick={ resetIntervals }>
         Restart
       </Button>
-      <span>Last reset: { lastReset }</span>
     </Flex>
   )
-}
-
-function isWorkInterval (interval: Interval) {
-  return interval.type === 'WORK'
 }
