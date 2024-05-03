@@ -27,7 +27,7 @@ export const useTimerContext = () => {
 export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { notify } = useNotificationsContext()
   const { addInterval } = useIntervalsStore()
-  const { reset, setTotalTime, start, stop, tick, time } = useTimerStore()
+  const { isRunning, reset, setTotalTime, start, stop, tick, time } = useTimerStore()
   const [currentSegment, workLength, shortLength, longLength] = useSettingsStore(state => [
     state.currentSegment,
     state.workLength,
@@ -58,14 +58,14 @@ export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, [reset])
 
   useEffect(() => {
-    if (time < 1) {
+    if (time < 1 && isRunning) {
       onStopTimer()
       addInterval({
         type: currentSegment,
       })
       notify(NOTIFICATION)
     }
-  }, [addInterval, currentSegment, notify, onStopTimer, time])
+  }, [addInterval, currentSegment, isRunning, notify, onStopTimer, time])
 
   const onSegmentChange = useCallback((totalTime: number) => {
     setTotalTime(totalTime)
