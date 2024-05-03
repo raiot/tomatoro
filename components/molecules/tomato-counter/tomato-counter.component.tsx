@@ -55,7 +55,7 @@ export const TomatoCounter: FC = () => {
         { intervals.map(createTomatoForInterval) }
       </Flex>
 
-      <Button onClick={ resetIntervalsRequested }>
+      <Button variant="underlined" onClick={ resetIntervalsRequested }>
         { t('restart') }
       </Button>
     </Flex>

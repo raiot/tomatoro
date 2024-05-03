@@ -80,6 +80,24 @@ export const defaultTheme: Theme = {
         bg: 'primary',
       },
     },
+    underlined: {
+      color: 'textMediumEmphasis',
+      bg: 'transparent',
+      cursor: 'pointer',
+      borderBottom: '1px solid',
+      borderRadius: 0,
+      padding: 1,
+      fontFamily: 'body',
+      transition: 'background-color 0.15s ease-in-out, opacity 0.15s ease-in-out',
+      willChange: 'background-color, opacity',
+      '&:hover, &:focus, &:active': {
+        opacity: 0.4,
+      },
+      '&:disabled': {
+        opacity: 0.4,
+        bg: 'primary',
+      },
+    },
   },
   messages: {
     warn: {
@@ -137,7 +155,7 @@ export const defaultTheme: Theme = {
       borderTop: '1px solid #ddd',
     },
     popup: {
-      padding: 2,
+      padding: 3,
       borderRadius: 2,
       border: '1px solid #ddd',
       backgroundColor: 'background',
