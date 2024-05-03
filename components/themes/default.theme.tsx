@@ -50,6 +50,11 @@ export const defaultTheme: Theme = {
       textAlign: 'justify',
       lineHeight: '1.75em',
     },
+    popup: {
+      color: 'textMediumEmphasis',
+      textAlign: 'left',
+      lineHeight: '1.5em',
+    },
   },
   colors: {
     contrastText: '#fff',
@@ -130,6 +135,13 @@ export const defaultTheme: Theme = {
     question: {
       pt: 4,
       borderTop: '1px solid #ddd',
+    },
+    popup: {
+      padding: 2,
+      borderRadius: 2,
+      border: '1px solid #ddd',
+      backgroundColor: 'background',
+      maxWidth: '240px',
     },
   },
   styles: {
