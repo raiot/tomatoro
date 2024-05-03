@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation'
 import { FC, ReactNode } from 'react'
 import { Button, Card, Flex, Heading, Paragraph } from 'theme-ui'
 
@@ -6,13 +7,14 @@ import { Tomato } from '~/components/atoms/tomato'
 import { Interval, useIntervalsStore } from '~/stores/intervals'
 import { SegmentType } from '~/utils/config'
 
-const popupBody: Record<SegmentType, ReactNode> = {
-  WORK: 'Tomato earned by finishing a working interval!',
-  SHORT: 'Tomato earned by finishing a short break!',
-  LONG: 'Tomato earned by finishing a long break!',
+const popupBody: Record<SegmentType, string> = {
+  WORK: 'popup.work',
+  SHORT: 'popup.short',
+  LONG: 'popup.long',
 }
 
 export const TomatoCounter: FC = () => {
+  const { t } = useTranslation('timer')
   const { intervals, resetIntervals } = useIntervalsStore()
 
   if (intervals.length === 0) {
@@ -20,15 +22,33 @@ export const TomatoCounter: FC = () => {
   }
 
   function resetIntervalsRequested () {
-    if (window.confirm('Do you want to reset your tomato counter? This action cannot be undone.')) {
+    if (window.confirm(t('restartWarning'))) {
       resetIntervals()
     }
+  }
+
+  function createTomatoForInterval (interval: Interval, index: number) {
+    return (
+      <Popup
+        key={ `${ interval.type }-${ index }` }
+        content={ (
+          <Card variant="popup">
+            <Paragraph variant="text.popup">{ t(popupBody[interval.type]) }</Paragraph>
+          </Card>
+        ) }
+      >
+        <Tomato
+          height={ 28 }
+          type={ interval.type }
+        />
+      </Popup>
+    )
   }
 
   return (
     <Flex sx={ { gap: '1em', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' } }>
       <Heading as="h4" variant="text.paragraph">
-        Your day:
+        { t('yourDay') }
       </Heading>
 
       <Flex sx={ { gap: '0.25em' } }>
@@ -36,26 +56,8 @@ export const TomatoCounter: FC = () => {
       </Flex>
 
       <Button onClick={ resetIntervalsRequested }>
-        Restart
+        { t('restart') }
       </Button>
     </Flex>
-  )
-}
-
-function createTomatoForInterval (interval: Interval, index: number) {
-  return (
-    <Popup
-      key={ `${ interval.type }-${ index }` }
-      content={ (
-        <Card variant="popup">
-          <Paragraph variant="text.popup">{ popupBody[interval.type] }</Paragraph>
-        </Card>
-      ) }
-    >
-      <Tomato
-        height={ 28 }
-        type={ interval.type }
-      />
-    </Popup>
   )
 }
