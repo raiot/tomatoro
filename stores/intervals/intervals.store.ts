@@ -5,6 +5,7 @@ import { Interval, IntervalsState, IntervalsStore } from './intervals-store.type
 
 const initialState: IntervalsState = {
   intervals: [],
+  lastReset: null,
 }
 
 const intervalsStore = create<
@@ -28,7 +29,10 @@ const intervalsStore = create<
         ),
 
         resetIntervals: () => set(
-          () => ({ ...initialState }),
+          () => ({
+            ...initialState,
+            lastReset: new Date().toISOString(),
+          }),
           false,
           { type: 'intervals/resetSetting' },
         ),

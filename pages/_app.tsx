@@ -1,3 +1,4 @@
+import { differenceInCalendarDays } from 'date-fns'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Posthog from 'posthog-js'
@@ -11,6 +12,7 @@ import {
   NotificationsProvider,
 } from '~/contexts/notifications/notifications-context.provider'
 import { TimerProvider } from '~/contexts/timer'
+import { useIntervalsStore } from '~/stores/intervals'
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
   Posthog.init(
@@ -23,6 +25,7 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
 
 export default function App ({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const { lastReset, resetIntervals } = useIntervalsStore()
   const [theme] = useLocalStorage('theme', 'light')
 
   useEffect(() => {
@@ -66,6 +69,21 @@ export default function App ({ Component, pageProps }: AppProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
+
+  /*
+   * Restores the intervals store if lastReset was a day ago
+   */
+  useEffect(() => {
+    if (!lastReset) {
+      return
+    }
+
+    const shouldResetIntervals = differenceInCalendarDays(new Date(), new Date(lastReset!)) > 0
+
+    if (shouldResetIntervals) {
+      resetIntervals()
+    }
+  }, [lastReset, resetIntervals])
 
   return (
     <PostHogProvider client={ Posthog }>

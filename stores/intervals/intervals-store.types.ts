@@ -6,6 +6,7 @@ export interface Interval {
 
 export interface IntervalsState {
   intervals: Interval[]
+  lastReset: string | null
 }
 
 export interface IntervalsStore extends IntervalsState {
