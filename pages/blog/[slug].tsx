@@ -33,8 +33,6 @@ export default function PostBySlug ({ post }: { post: Post }) {
   const isClient = useIsClient()
   const isPageRatingEnabled = posthog.isFeatureEnabled('page-rating')
 
-  console.log('[DEBUG] isPageRatingEnabled', posthog.isFeatureEnabled('page-rating'))
-
   if (!post) {
     return null
   }
