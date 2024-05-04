@@ -11,3 +11,9 @@ export const isAmericanCountry = (local: string): boolean => {
 
   return americanCountries.includes(countryCode || '')
 }
+
+export const isPeru = (local: string): boolean => {
+  const [, countryCode] = /[_-](.+)/.exec(local) || []
+
+  return ['PE'].includes(countryCode || '')
+}
