@@ -97,6 +97,17 @@ export const defaultTheme: Theme = {
         opacity: 0.3,
       },
     },
+    rate: {
+      px: 3,
+      py: 1,
+      fontSize: [5, 8],
+      lineHeight: 'normal',
+      cursor: 'pointer',
+      '&:disabled': {
+        opacity: 0.3,
+        cursor: 'default',
+      },
+    },
   },
   messages: {
     warn: {

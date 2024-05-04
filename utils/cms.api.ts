@@ -39,7 +39,7 @@ const localeToCategoryId = {
 }
 
 export const getAllPosts = async (locale: Locale) => {
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category]=${localeToCategoryId[locale]}&locale=${ locale }`)
+  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category]=${ localeToCategoryId[locale] }&locale=${ locale }`)
   return obj.data
 }
 
@@ -66,5 +66,18 @@ export const getQuestions = async (locale?: string) => {
 export const getSingleType = async <T>(apiId: string, extraParams?: string, locale?: string) => {
   const localeParam = locale ? `&locale=${ locale }` : ''
   const { data: obj } = await axios.get<CmsSingleEntryResponse<T>>(`${ CMS_URL }/${ apiId }?${ extraParams }${ localeParam }`)
+  return obj.data
+}
+
+export interface RatingBody {
+  slug: string
+  rate: 'great' | 'good' | 'bad'
+}
+
+export const postRating = async <T>(rating: RatingBody) => {
+  const { data: obj } = await axios.post<CmsSingleEntryResponse<T>>(
+    `${ CMS_URL }/page-ratings`,
+    { data: rating },
+  )
   return obj.data
 }

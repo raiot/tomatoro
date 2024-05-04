@@ -2,9 +2,9 @@
   "locales": ["en", "es"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common", "timer"],
+    "*": ["common", "feedback"],
     "/news": ["pages"],
-    "/": ["home", "example"],
+    "/": ["home", "timer"],
     "/about": ["about"]
   }
 }

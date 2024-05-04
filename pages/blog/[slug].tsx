@@ -1,9 +1,11 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
-import { Grid, Heading } from 'theme-ui'
+import { Box, Grid, Heading } from 'theme-ui'
+import { useIsClient } from 'usehooks-ts'
 
 import { BackCta } from '~/components/atoms/back-cta'
+import { FeedbackForPage } from '~/components/organisms/feedback-for-page'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import { getPostBySlug } from '~/utils/cms.api'
@@ -27,6 +29,8 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 export default function PostBySlug ({ post }: { post: Post }) {
+  const isClient = useIsClient()
+
   if (!post) {
     return null
   }
@@ -52,6 +56,11 @@ export default function PostBySlug ({ post }: { post: Post }) {
         } }>
         <Heading as="h1">{ post.attributes.title }</Heading>
         <RichTextRenderer content={ post.attributes.content }/>
+        { isClient && (
+          <Box sx={ { my: 5 } }>
+            <FeedbackForPage pageId={ post.attributes.slug }/>
+          </Box>
+        ) }
         <BackCta/>
       </Grid>
     </Page>
