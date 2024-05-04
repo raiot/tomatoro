@@ -69,6 +69,11 @@ const nextConfig = {
         destination: '/blog/:slug',
         permanent: true,
       },
+      {
+        source: '/privacy',
+        destination: '/privacy-notice',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {
