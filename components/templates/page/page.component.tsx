@@ -47,6 +47,7 @@ export const Page: FC<PageProps> = ({
   const url = SEO.url + cleanPath
   const jsonLd = seo?.structuredData || {}
   const metaRobots = seo?.metaRobots || 'index, follow'
+  const canonicalUrl = seo?.canonicalURL
 
   const composedTitle = useMemo(() => {
     let result = defaultTitle
@@ -85,6 +86,7 @@ export const Page: FC<PageProps> = ({
         <meta name="twitter:title" content={ composedTitle }/>
         <meta name="twitter:description" content={ description }/>
         <meta name="twitter:image" content={ image }/>
+        { canonicalUrl && <meta name="canonical" content={ canonicalUrl }/> }
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={ { __html: JSON.stringify(jsonLd) } }
