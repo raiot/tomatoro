@@ -13,7 +13,7 @@ interface RatedPages {
   [key: string]: RatingBody['rate']
 }
 
-export const FeedbackForPage: FC<Props> = ({ pageId }) => {
+export const PageRating: FC<Props> = ({ pageId }) => {
   const { t } = useTranslation('feedback')
   const [ratedPages, setRatedPages] = useLocalStorage('rated-pages', {} as RatedPages)
   const [isRating, setIsRating] = useState(false)

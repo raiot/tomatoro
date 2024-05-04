@@ -6,7 +6,7 @@ import { Box, Grid, Heading } from 'theme-ui'
 import { useIsClient } from 'usehooks-ts'
 
 import { BackCta } from '~/components/atoms/back-cta'
-import { FeedbackForPage } from '~/components/organisms/feedback-for-page'
+import { PageRating } from '~/components/organisms/page-rating'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 import { Page } from '~/components/templates/page'
 import { getPostBySlug } from '~/utils/cms.api'
@@ -60,7 +60,7 @@ export default function PostBySlug ({ post }: { post: Post }) {
         <RichTextRenderer content={ post.attributes.content }/>
         { isClient && isPageRatingEnabled && (
           <Box sx={ { my: 5 } }>
-            <FeedbackForPage pageId={ post.attributes.slug }/>
+            <PageRating pageId={ post.attributes.slug }/>
           </Box>
         ) }
         <BackCta/>
