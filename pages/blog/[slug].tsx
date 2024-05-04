@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
+import posthog from 'posthog-js'
 import React from 'react'
 import { Box, Grid, Heading } from 'theme-ui'
 import { useIsClient } from 'usehooks-ts'
@@ -30,6 +31,9 @@ export const getServerSideProps: GetServerSideProps<
 
 export default function PostBySlug ({ post }: { post: Post }) {
   const isClient = useIsClient()
+  const isPageRatingEnabled = posthog.isFeatureEnabled('page-rating')
+
+  console.log('[DEBUG] isPageRatingEnabled', posthog.isFeatureEnabled('page-rating'))
 
   if (!post) {
     return null
@@ -56,7 +60,7 @@ export default function PostBySlug ({ post }: { post: Post }) {
         } }>
         <Heading as="h1">{ post.attributes.title }</Heading>
         <RichTextRenderer content={ post.attributes.content }/>
-        { isClient && (
+        { isClient && isPageRatingEnabled && (
           <Box sx={ { my: 5 } }>
             <FeedbackForPage pageId={ post.attributes.slug }/>
           </Box>
