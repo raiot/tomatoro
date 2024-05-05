@@ -1,13 +1,13 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 
-import { getAllPosts } from '~/utils/cms.api'
+import { getAllBlogs } from '~/utils/cms.api'
 import { getAllStaticPages } from '~/utils/data.api'
 
 interface SiteMapData {
   posts: {
-    en: Post[]
-    es: Post[]
+    en: CmsPageEntry[]
+    es: CmsPageEntry[]
   }
   domain: string
   staticPages: Array<{ slug: string }>
@@ -51,8 +51,8 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ res }) => {
   try {
     const staticPages = getAllStaticPages()
     const [postsEn, postsEs] = await Promise.all([
-      getAllPosts('en'),
-      getAllPosts('es'),
+      getAllBlogs('en'),
+      getAllBlogs('es'),
     ])
     const sitemap = generateSiteMap({
       posts: { en: postsEn, es: postsEs },

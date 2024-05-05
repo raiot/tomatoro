@@ -49,7 +49,7 @@ type Image = {
   }
 }
 
-type Post = {
+type CmsPageEntry = {
   id: number
   attributes: {
     title: string

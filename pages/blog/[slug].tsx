@@ -13,7 +13,7 @@ import { Page } from '~/components/templates/page'
 import { getPostBySlug } from '~/utils/cms.api'
 
 export const getServerSideProps: GetServerSideProps<
-  { post: Post },
+  { post: CmsPageEntry },
   { slug: string }
 > = async ({ locale, params }) => {
   try {
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<
   }
 }
 
-export default function PostBySlug ({ post }: { post: Post }) {
+export default function PostBySlug ({ post }: { post: CmsPageEntry }) {
   const isClient = useIsClient()
   const isPageRatingWidgetEnabled = posthog.isFeatureEnabled('page-rating-widget')
   const isSubscriptionWidgetEnabled = posthog.isFeatureEnabled('subscription-widget')

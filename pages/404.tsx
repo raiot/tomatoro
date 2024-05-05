@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-export default function Custom404 ({ page }: { page: Post }) {
+export default function Custom404 ({ page }: { page: CmsPageEntry }) {
   return (
     <Page subtitle={ page.attributes.title } isWrapped>
       <Grid variant="contained" columns={ 2 }>

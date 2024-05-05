@@ -4,16 +4,16 @@ import { Heading, Link as TuiLink } from 'theme-ui'
 
 import { Date } from '~/components/atoms/date'
 
-import { List, ListItem } from './posts-list.styles'
+import { List, ListItem } from './blogs-list.styles'
 
 interface Props {
-  posts: Post[]
+  blogs: CmsPageEntry[]
 }
 
-export const PostsList: FC<Props> = ({ posts }) => {
+export const BlogsList: FC<Props> = ({ blogs }) => {
   return (
     <List>
-      { posts.map((post) => (
+      { blogs.map((post) => (
         <ListItem key={ post.id }>
           <Heading as="h4" mr={ 3 }>
             <Date dateString={ post.attributes.publishedAt }/>

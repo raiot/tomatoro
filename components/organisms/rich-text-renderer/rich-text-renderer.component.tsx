@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import { Divider, Heading, Link, Paragraph } from 'theme-ui'
 
 interface Props {
-  content: Post['attributes']['content']
+  content: CmsPageEntry['attributes']['content']
   overrides?: Partial<{
     a: ThemeUIStyleObject,
     p: ThemeUIStyleObject
