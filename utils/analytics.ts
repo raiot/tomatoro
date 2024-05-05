@@ -11,6 +11,8 @@ const EVENT = {
   TIMER_SEGMENT_CHANGED: 'timer_segment_changed',
   // App events
   INTERVALS_RESET: 'intervals_reset',
+  // Settings events
+  SETTINGS_CHANGED: 'settings_changed',
   // Other
   PAGE_VIEW: '$pageview',
   LANGUAGE_CHANGED: '$language_changed',
@@ -22,6 +24,7 @@ export function init () {
       process.env.NEXT_PUBLIC_POSTHOG_KEY as string,
       {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+        autocapture: true,
       },
     )
   }
