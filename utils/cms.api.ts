@@ -81,3 +81,16 @@ export const postRating = async <T>(rating: RatingBody) => {
   )
   return obj.data
 }
+
+export interface SubscriptionBody {
+  email: string
+  marketing: true
+}
+
+export const postSubscription = async <T>(subscription: SubscriptionBody) => {
+  const { data: obj } = await axios.post<CmsSingleEntryResponse<T>>(
+    `${ CMS_URL }/subscriptions`,
+    { data: subscription },
+  )
+  return obj.data
+}

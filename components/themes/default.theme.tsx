@@ -70,6 +70,8 @@ export const defaultTheme: Theme = {
     primary: {
       color: 'white',
       fontFamily: 'body',
+      minWidth: 'auto',
+      height: 'max-content',
       transition: 'background-color 0.15s ease-in-out, opacity 0.15s ease-in-out',
       willChange: 'background-color, opacity',
       '&:hover, &:focus, &:active': {

@@ -8,6 +8,7 @@ import { useIsClient } from 'usehooks-ts'
 import { BackCta } from '~/components/atoms/back-cta'
 import { PageRating } from '~/components/organisms/page-rating'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
+import { SubscribeWidget } from '~/components/organisms/subscribe-widget'
 import { Page } from '~/components/templates/page'
 import { getPostBySlug } from '~/utils/cms.api'
 
@@ -31,7 +32,8 @@ export const getServerSideProps: GetServerSideProps<
 
 export default function PostBySlug ({ post }: { post: Post }) {
   const isClient = useIsClient()
-  const isPageRatingEnabled = posthog.isFeatureEnabled('page-rating')
+  const isPageRatingWidgetEnabled = posthog.isFeatureEnabled('page-rating-widget')
+  const isSubscriptionWidgetEnabled = posthog.isFeatureEnabled('subscription-widget')
 
   if (!post) {
     return null
@@ -58,12 +60,17 @@ export default function PostBySlug ({ post }: { post: Post }) {
         } }>
         <Heading as="h1">{ post.attributes.title }</Heading>
         <RichTextRenderer content={ post.attributes.content }/>
-        { isClient && isPageRatingEnabled && (
+        { isClient && isPageRatingWidgetEnabled && (
           <Box sx={ { my: 5 } }>
             <PageRating pageId={ post.attributes.slug }/>
           </Box>
         ) }
         <BackCta/>
+        { isClient && isSubscriptionWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <SubscribeWidget/>
+          </Box>
+        ) }
       </Grid>
     </Page>
   )

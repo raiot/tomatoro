@@ -1,0 +1,9 @@
+{
+  "title": "📣 Stay Updated with Our News",
+  "cta": "Subscribe",
+  "placeholder": "ana@gmail.com",
+  "content": "Your time is valuable, we only send emails with important updates",
+  "caption": "You can unsubscribe at any time: you will find a link to cancel your subscription in each email",
+  "error": "Please enter a valid email address",
+  "thanks": "Thank you for subscribing! 🎉"
+}

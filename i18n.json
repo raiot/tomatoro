@@ -2,7 +2,7 @@
   "locales": ["en", "es"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common", "feedback"],
+    "*": ["common", "feedback", "subscribe"],
     "/news": ["pages"],
     "/": ["home", "timer"],
     "/about": ["about"]
