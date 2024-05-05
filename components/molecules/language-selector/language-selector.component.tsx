@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
-import Posthog from 'posthog-js'
 import { useMemo } from 'react'
 import { Select, Spinner } from 'theme-ui'
 import { useBoolean, useIsClient } from 'usehooks-ts'
 
+import { trackEvent } from '~/utils/analytics'
 import { isAmericanCountry, isPeru } from '~/utils/is-american-country'
 
 export const LanguageSelector = () => {
@@ -32,7 +32,7 @@ export const LanguageSelector = () => {
     const { asPath, pathname, query } = router
     router.push({ pathname, query }, asPath, { locale: newLocale }).then(() => {
       setFalse()
-      Posthog?.capture('$language_changed', { language: newLocale })
+      trackEvent('LANGUAGE_CHANGED', { language: newLocale })
     })
   }
 
