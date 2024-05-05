@@ -15,7 +15,7 @@ export const PostsList: FC<Props> = ({ posts }) => {
     <List>
       { posts.map((post) => (
         <ListItem key={ post.id }>
-          <Heading as="h4">
+          <Heading as="h4" mr={ 3 }>
             <Date dateString={ post.attributes.publishedAt }/>
           </Heading>
           <TuiLink as={ Link } href={ `/blog/${ post.attributes.slug }` }>

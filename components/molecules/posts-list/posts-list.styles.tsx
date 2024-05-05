@@ -8,9 +8,5 @@ export const List = styled.ul`
 export const ListItem = styled.li`
   & > * {
     display: inline-block;
-
-    &:first-child {
-      margin-right: 1em;
-    }
   }
 `
