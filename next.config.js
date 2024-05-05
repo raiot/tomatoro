@@ -87,6 +87,10 @@ const nextConfig = {
         destination: '/faq',
       },
       {
+        source: '/ayuda',
+        destination: '/help',
+      },
+      {
         source: '/ayuda/:slug',
         destination: '/help/:slug',
       },

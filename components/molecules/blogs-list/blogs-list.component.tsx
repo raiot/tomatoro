@@ -8,9 +8,10 @@ import { List, ListItem } from './blogs-list.styles'
 
 interface Props {
   blogs: CmsPageEntry[]
+  path?: string
 }
 
-export const BlogsList: FC<Props> = ({ blogs }) => {
+export const BlogsList: FC<Props> = ({ blogs, path = 'blog' }) => {
   return (
     <List>
       { blogs.map((post) => (
@@ -18,7 +19,7 @@ export const BlogsList: FC<Props> = ({ blogs }) => {
           <Heading as="h4" mr={ 3 }>
             <Date dateString={ post.attributes.publishedAt }/>
           </Heading>
-          <TuiLink as={ Link } href={ `/blog/${ post.attributes.slug }` }>
+          <TuiLink as={ Link } href={ `/${ path }/${ post.attributes.slug }` }>
             { post.attributes.title }
           </TuiLink>
         </ListItem>

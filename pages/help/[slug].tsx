@@ -18,7 +18,6 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ locale, params }) => {
   try {
     const post = await getPostBySlug(params?.slug || '', locale)
-    console.log('[DEBUG] post', post)
 
     if (!post) {
       return { notFound: true }
