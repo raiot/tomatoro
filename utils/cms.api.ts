@@ -29,17 +29,27 @@ export const getPostBySlug = async (slug: string, locale?: string) => {
   }
 
   const localeParam = locale ? `&locale=${ locale }` : ''
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
+  const { data: obj } = await axios.get<CmsResponse<CmsPageEntry>>(`${ CMS_URL }/posts?filters[slug][$eq]=${ slug }&populate[0]=seo&populate[1]=seo.metaImage&populate[2]=hero&populate[3]=category${ localeParam }`)
   return obj.data[0]
 }
 
-const localeToCategoryId = {
+const localeToBlogCategoryId = {
   'en': 1,
   'es': 5,
 }
 
-export const getAllPosts = async (locale: Locale) => {
-  const { data: obj } = await axios.get<CmsResponse<Post>>(`${ CMS_URL }/posts?filters[category]=${localeToCategoryId[locale]}&locale=${ locale }`)
+export const getAllBlogs = async (locale: Locale) => {
+  const { data: obj } = await axios.get<CmsResponse<CmsPageEntry>>(`${ CMS_URL }/posts?filters[category]=${ localeToBlogCategoryId[locale] }&locale=${ locale }`)
+  return obj.data
+}
+
+const localeToHelpCategoryId = {
+  'en': 2,
+  'es': 3,
+}
+
+export const getAllHelpEntries = async (locale: Locale) => {
+  const { data: obj } = await axios.get<CmsResponse<CmsPageEntry>>(`${ CMS_URL }/posts?filters[category]=${ localeToHelpCategoryId[locale] }&locale=${ locale }`)
   return obj.data
 }
 
@@ -66,5 +76,31 @@ export const getQuestions = async (locale?: string) => {
 export const getSingleType = async <T>(apiId: string, extraParams?: string, locale?: string) => {
   const localeParam = locale ? `&locale=${ locale }` : ''
   const { data: obj } = await axios.get<CmsSingleEntryResponse<T>>(`${ CMS_URL }/${ apiId }?${ extraParams }${ localeParam }`)
+  return obj.data
+}
+
+export interface RatingBody {
+  slug: string
+  rate: 'great' | 'good' | 'bad'
+}
+
+export const postRating = async <T>(rating: RatingBody) => {
+  const { data: obj } = await axios.post<CmsSingleEntryResponse<T>>(
+    `${ CMS_URL }/page-ratings`,
+    { data: rating },
+  )
+  return obj.data
+}
+
+export interface SubscriptionBody {
+  email: string
+  marketing: true
+}
+
+export const postSubscription = async <T>(subscription: SubscriptionBody) => {
+  const { data: obj } = await axios.post<CmsSingleEntryResponse<T>>(
+    `${ CMS_URL }/subscriptions`,
+    { data: subscription },
+  )
   return obj.data
 }

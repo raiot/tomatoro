@@ -1,0 +1,9 @@
+{
+  "title": "Did you find this page helpful?",
+  "rate": {
+    "great": "🥰",
+    "good": "🙂",
+    "bad": "🙁"
+  },
+  "caption": "Your feedback helps us improve Tomatoro 🍅"
+}

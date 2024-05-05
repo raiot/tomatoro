@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import React, { FC, useMemo } from 'react'
 import { useIsClient } from 'usehooks-ts'
 
+import { Hero } from '~/components/atoms/hero'
+import { Screen } from '~/components/atoms/screen'
 import { UnstableWarning } from '~/components/atoms/unstable-warning'
 import { Banners } from '~/components/organisms/banners'
 import { Footer } from '~/components/organisms/footer'
@@ -14,6 +16,11 @@ interface PageProps {
   children: React.ReactNode
   subtitle?: string
   seo?: Seo | null
+  isWrapped?: boolean
+  hero?: {
+    imageUrl?: string
+    caption?: string
+  }
 }
 
 const defaultTitle = `${ SEO.title } | ${ SEO.subtitle }`
@@ -22,7 +29,14 @@ const shouldShowUnstableWarning = (origin: string) => {
   return process.env.NODE_ENV === 'production' && origin.includes('next')
 }
 
-export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
+export const Page: FC<PageProps> = ({
+  banners,
+  children,
+  hero,
+  isWrapped,
+  seo,
+  subtitle,
+}) => {
   const isClient = useIsClient()
   const { asPath } = useRouter()
   const cleanPath = asPath.split('#')[0].split('?')[0]
@@ -33,6 +47,7 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
   const url = SEO.url + cleanPath
   const jsonLd = seo?.structuredData || {}
   const metaRobots = seo?.metaRobots || 'index, follow'
+  const canonicalUrl = seo?.canonicalURL
 
   const composedTitle = useMemo(() => {
     let result = defaultTitle
@@ -71,6 +86,7 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
         <meta name="twitter:title" content={ composedTitle }/>
         <meta name="twitter:description" content={ description }/>
         <meta name="twitter:image" content={ image }/>
+        { canonicalUrl && <meta name="canonical" content={ canonicalUrl }/> }
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={ { __html: JSON.stringify(jsonLd) } }
@@ -85,9 +101,37 @@ export const Page: FC<PageProps> = ({ banners, children, seo, subtitle }) => {
       {/* Banners appears only in client. It might cause issues with SSR */ }
       { isClient && banners && <Banners banners={ banners }/> }
 
-      { children }
+      { getContent({ children, isWrapped, hero }) }
 
       <Footer version={ VERSION }/>
     </>
   )
+}
+
+function getContent ({ children, hero, isWrapped }: {
+  children: PageProps['children']
+  isWrapped: PageProps['isWrapped']
+  hero: PageProps['hero']
+}) {
+  const heroElement = hero?.imageUrl ? (
+    <Hero
+      sx={ { backgroundImage: `url(${ hero.imageUrl })` } }
+      role="img"
+      aria-label={ hero?.caption }
+    />
+  ) : null
+
+  return isWrapped
+    ? (
+      <Screen pt={ hero?.imageUrl && 'inherit !important' }>
+        { heroElement }
+        { children }
+      </Screen>
+    )
+    : (
+      <>
+        { heroElement }
+        { children }
+      </>
+    )
 }

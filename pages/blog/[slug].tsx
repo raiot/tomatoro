@@ -1,19 +1,21 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
+import posthog from 'posthog-js'
 import React from 'react'
-import { Grid, Heading } from 'theme-ui'
+import { Box, Grid, Heading } from 'theme-ui'
+import { useIsClient } from 'usehooks-ts'
 
 import { BackCta } from '~/components/atoms/back-cta'
-import { Hero } from '~/components/atoms/hero'
-import { Screen } from '~/components/atoms/screen'
+import { PageRating } from '~/components/organisms/page-rating'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
+import { SubscribeWidget } from '~/components/organisms/subscribe-widget'
 import { Page } from '~/components/templates/page'
 import { getPostBySlug } from '~/utils/cms.api'
 
 export const getServerSideProps: GetServerSideProps<
-  { post: Post },
+  { post: CmsPageEntry },
   { slug: string }
-> = async ({ locale,params }) => {
+> = async ({ locale, params }) => {
   try {
     const post = await getPostBySlug(params?.slug || '', locale)
 
@@ -28,35 +30,48 @@ export const getServerSideProps: GetServerSideProps<
   }
 }
 
-export default function PostBySlug ({ post }: { post: Post }) {
+export default function PostBySlug ({ post }: { post: CmsPageEntry }) {
+  const isClient = useIsClient()
+  const isPageRatingWidgetEnabled = posthog.isFeatureEnabled('page-rating-widget')
+  const isSubscriptionWidgetEnabled = posthog.isFeatureEnabled('subscription-widget')
+
   if (!post) {
     return null
   }
 
-  const showHero = !!post.attributes.hero?.data
+  const showHero = !!post.attributes.hero?.data?.attributes.url
 
   return (
-    <Page subtitle={ post.attributes.title } seo={ post.attributes.seo }>
-      <Screen pt={ showHero && 'inherit !important' }>
-        { showHero && (
-          <Hero
-            sx={ { backgroundImage: `url(${ post.attributes.hero!.data!.attributes.url })` } }
-            role="img"
-            aria-label={ post.attributes.hero!.data!.attributes.caption }
-          />
+    <Page
+      hero={ {
+        imageUrl: post.attributes.hero?.data?.attributes.url,
+        caption: post.attributes.hero?.data?.attributes.caption,
+      } }
+      seo={ post.attributes.seo }
+      subtitle={ post.attributes.title }
+      isWrapped
+    >
+      <Grid variant="contained"
+        sx={ {
+          gap: 3,
+          lineHeight: 2,
+          justifyItems: 'start',
+          paddingTop: showHero && 5,
+        } }>
+        <Heading as="h1">{ post.attributes.title }</Heading>
+        <RichTextRenderer content={ post.attributes.content }/>
+        { isClient && isPageRatingWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <PageRating pageId={ post.attributes.slug }/>
+          </Box>
         ) }
-        <Grid variant="contained"
-          sx={ {
-            gap: 3,
-            lineHeight: 2,
-            justifyItems: 'start',
-            paddingTop: showHero && 5,
-          } }>
-          <Heading as="h1">{ post.attributes.title }</Heading>
-          <RichTextRenderer content={ post.attributes.content }/>
-          <BackCta/>
-        </Grid>
-      </Screen>
+        <BackCta/>
+        { isClient && isSubscriptionWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <SubscribeWidget/>
+          </Box>
+        ) }
+      </Grid>
     </Page>
   )
 }

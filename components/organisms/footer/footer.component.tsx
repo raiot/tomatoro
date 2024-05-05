@@ -22,6 +22,7 @@ export const Footer: FC<Props> = ({ version }) => {
     const pagesForLocale = PAGES[locale]
 
     const siteItems: FooterLink[] = [
+      { key: 'blog', href: pagesForLocale.BLOG },
       { key: 'news', href: LINKS.NEWS },
       { key: 'terms', href: pagesForLocale.TERMS },
       { key: 'privacy', href: pagesForLocale.PRIVACY },
@@ -29,6 +30,7 @@ export const Footer: FC<Props> = ({ version }) => {
     ]
 
     const supportItems: FooterLink[] = [
+      { key: 'help', href: pagesForLocale.HELP },
       { key: 'faq', href: pagesForLocale.FAQ },
       { key: 'status', href: LINKS.STATUS },
       { key: 'contact', href: pagesForLocale.CONTACT },

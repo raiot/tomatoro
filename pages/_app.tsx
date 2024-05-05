@@ -1,3 +1,4 @@
+import { differenceInCalendarDays } from 'date-fns'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Posthog from 'posthog-js'
@@ -11,23 +12,19 @@ import {
   NotificationsProvider,
 } from '~/contexts/notifications/notifications-context.provider'
 import { TimerProvider } from '~/contexts/timer'
+import { useIntervalsStore } from '~/stores/intervals'
+import { init, trackEvent } from '~/utils/analytics'
 
-if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
-  Posthog.init(
-    process.env.NEXT_PUBLIC_POSTHOG_KEY as string,
-    {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
-    },
-  )
-}
+init()
 
 export default function App ({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const { lastReset, resetIntervals } = useIntervalsStore()
   const [theme] = useLocalStorage('theme', 'light')
 
   useEffect(() => {
     // Track page views
-    const handleRouteChange = () => Posthog?.capture('$pageview')
+    const handleRouteChange = () => trackEvent('PAGE_VIEW')
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
@@ -41,7 +38,7 @@ export default function App ({ Component, pageProps }: AppProps) {
       navigator.serviceWorker.ready.then(registration => {
         registration.unregister()
         console.log('unregistered!')
-        Posthog?.capture('legacy_worker_uninstalled')
+        trackEvent('LEGACY_WORKER_UNINSTALLED')
       })
     }
   }))
@@ -66,6 +63,23 @@ export default function App ({ Component, pageProps }: AppProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
+
+  /*
+   * Restores the intervals store if lastReset was a day ago
+   */
+  useEffect(() => {
+    if (!lastReset) {
+      resetIntervals()
+      return
+    }
+
+    const shouldResetIntervals = differenceInCalendarDays(new Date(), new Date(lastReset!)) > 0
+
+    if (shouldResetIntervals) {
+      resetIntervals()
+      trackEvent('INTERVALS_RESET')
+    }
+  }, [lastReset, resetIntervals])
 
   return (
     <PostHogProvider client={ Posthog }>

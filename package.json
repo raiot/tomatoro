@@ -1,6 +1,6 @@
 {
   "name": "tomatoro",
-  "version": "3.0.182",
+  "version": "3.0.215",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,9 +13,9 @@
   "dependencies": {
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
-    "@sentry/nextjs": "7.112.2",
+    "@sentry/nextjs": "7.113.0",
     "@theme-ui/color": "0.16.2",
-    "@types/node": "20.12.7",
+    "@types/node": "20.12.8",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "axios": "1.6.8",
@@ -26,9 +26,10 @@
     "next": "14.2.2",
     "next-translate": "^2.6.2",
     "next-translate-plugin": "^2.6.2",
-    "posthog-js": "1.130.1",
+    "posthog-js": "1.130.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.51.4",
     "react-markdown": "9.0.1",
     "theme-ui": "0.16.2",
     "typescript": "5.4.5",

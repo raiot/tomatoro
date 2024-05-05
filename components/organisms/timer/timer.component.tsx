@@ -45,12 +45,14 @@ export const Timer: FC = () => {
         <Button
           onClick={ onStopClick }
           disabled={ !isStarted }
+          data-tracking-id="button-timer-done"
         >
           { t('done') }
         </Button>
         <Button
           onClick={ onToggleClick }
           bg={ isRunning ? 'yellow' : 'green' }
+          data-tracking-id={ isRunning ? 'button-timer-pause' : 'button-timer-start' }
         >
           { isRunning ? t('pause') : t('start') }
         </Button>

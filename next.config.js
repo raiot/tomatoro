@@ -5,13 +5,7 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 const nextTranslate = require('next-translate-plugin')
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: 'en',
-    localeDetection: true,
-  },
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
@@ -75,6 +69,11 @@ const nextConfig = {
         destination: '/blog/:slug',
         permanent: true,
       },
+      {
+        source: '/privacy',
+        destination: '/privacy-notice',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {
@@ -82,6 +81,18 @@ const nextConfig = {
       {
         source: '/sitemap.xml',
         destination: '/sitemap',
+      },
+      {
+        source: '/preguntas-frecuentes',
+        destination: '/faq',
+      },
+      {
+        source: '/ayuda',
+        destination: '/help',
+      },
+      {
+        source: '/ayuda/:slug',
+        destination: '/help/:slug',
       },
     ]
   },

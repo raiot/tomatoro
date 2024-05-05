@@ -1,0 +1,11 @@
+{
+  "title": "Así va tu día en tomates:",
+  "popup": {
+    "work": "¡Tomate ganado por terminar un intervalo de trabajo!",
+    "short": "¡Tomate ganado por tomar un breve descanso!",
+    "long": "¡Tomate ganado por tomar un descanso largo!"
+  },
+  "restart": "Reiniciar",
+  "restartWarning": "¿Quieres reiniciar tu contador de tomates del día? Ésta acción no se puede deshacer.",
+  "alternativeTitle": "¡Mide tu productividad en tomates!"
+}

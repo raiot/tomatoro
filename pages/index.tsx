@@ -4,6 +4,7 @@ import React from 'react'
 import { Box, Divider } from 'theme-ui'
 
 import { Screen } from '~/components/atoms/screen'
+import { TomatoCounter } from '~/components/molecules/tomato-counter'
 import { NotificationsWarn } from '~/components/organisms/notifications-warn'
 import { GetInTouch } from '~/components/templates/get-in-touch'
 import { HowItWorks } from '~/components/templates/how-it-works'
@@ -34,6 +35,7 @@ export default function Home ({ banners }: { banners: Banner[] }) {
       <Box pt={ 4 } pb={ 5 }>
         <NotificationsWarn/>
         <TimerWithSelector/>
+        <TomatoCounter/>
       </Box>
 
       <Divider/>

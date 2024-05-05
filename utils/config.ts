@@ -53,6 +53,8 @@ export const PAGES = {
     CONTACT: '/contact',
     DASHBOARD: '/dashboard',
     PRICING: '/pricing',
+    BLOG: '/blog',
+    HELP: '/help',
   },
   es: {
     TERMS: '/es/terminos-servicio',
@@ -62,6 +64,8 @@ export const PAGES = {
     CONTACT: '/es/contacto',
     DASHBOARD: '/es/panel',
     PRICING: '/es/precios',
+    BLOG: '/es/blog',
+    HELP: '/es/ayuda',
   },
 }
 

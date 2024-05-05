@@ -1,0 +1,11 @@
+{
+  "title": "Here's how your day is going in tomatoes:",
+  "popup": {
+    "work": "Tomato earned by finishing a working interval!",
+    "short": "Tomato earned by finishing a short break!",
+    "long": "Tomato earned by finishing a long break!"
+  },
+  "restart": "Restart",
+  "restartWarning": "Do you want to reset your tomato counter? This action cannot be undone.",
+  "alternativeTitle": "Measure your productivity in tomatoes!"
+}

@@ -50,6 +50,11 @@ export const defaultTheme: Theme = {
       textAlign: 'justify',
       lineHeight: '1.75em',
     },
+    popup: {
+      color: 'textMediumEmphasis',
+      textAlign: 'left',
+      lineHeight: '1.5em',
+    },
   },
   colors: {
     contrastText: '#fff',
@@ -65,6 +70,8 @@ export const defaultTheme: Theme = {
     primary: {
       color: 'white',
       fontFamily: 'body',
+      minWidth: 'auto',
+      height: 'max-content',
       transition: 'background-color 0.15s ease-in-out, opacity 0.15s ease-in-out',
       willChange: 'background-color, opacity',
       '&:hover, &:focus, &:active': {
@@ -73,6 +80,34 @@ export const defaultTheme: Theme = {
       '&:disabled': {
         opacity: 0.4,
         bg: 'primary',
+      },
+    },
+    underlined: {
+      color: 'textMediumEmphasis',
+      bg: 'transparent',
+      cursor: 'pointer',
+      borderBottom: '1px solid',
+      borderRadius: 0,
+      padding: 1,
+      fontFamily: 'body',
+      transition: 'background-color 0.15s ease-in-out, opacity 0.15s ease-in-out',
+      willChange: 'background-color, opacity',
+      '&:hover, &:focus, &:active': {
+        opacity: 0.4,
+      },
+      '&:disabled': {
+        opacity: 0.3,
+      },
+    },
+    rate: {
+      px: 3,
+      py: 1,
+      fontSize: [5, 8],
+      lineHeight: 'normal',
+      cursor: 'pointer',
+      '&:disabled': {
+        opacity: 0.3,
+        cursor: 'default',
       },
     },
   },
@@ -93,6 +128,9 @@ export const defaultTheme: Theme = {
     },
   },
   forms: {
+    input: {
+      bg: 'background',
+    },
     label: {
       color: 'textMediumEmphasis',
       fontFamily: 'body',
@@ -127,9 +165,22 @@ export const defaultTheme: Theme = {
       borderRadius: 2,
       border: '1px solid #ddd',
     },
+    widget: {
+      bg: rgba('#333', 0.03),
+      padding: 4,
+      borderRadius: 2,
+      border: '1px solid #ddd',
+    },
     question: {
       pt: 4,
       borderTop: '1px solid #ddd',
+    },
+    popup: {
+      padding: 3,
+      borderRadius: 2,
+      border: '1px solid #ddd',
+      backgroundColor: 'background',
+      maxWidth: '240px',
     },
   },
   styles: {

@@ -36,6 +36,7 @@
       "site": {
         "title": "Site",
         "items": {
+          "blog": "Blog",
           "news": "News",
           "terms": "Terms of service",
           "privacy": "Privacy notice",
@@ -45,6 +46,7 @@
       "support": {
         "title": "Support",
         "items": {
+          "help": "Help Center",
           "faq": "FAQ",
           "status": "Status",
           "contact": "Contact"

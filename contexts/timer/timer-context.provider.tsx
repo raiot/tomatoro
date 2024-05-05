@@ -1,8 +1,10 @@
 import React, { ReactNode, useCallback, useEffect, useRef } from 'react'
 
 import { useNotificationsContext } from '~/contexts/notifications'
+import { useIntervalsStore } from '~/stores/intervals'
 import { useSettingsStore } from '~/stores/settings'
 import { useTimerStore } from '~/stores/time'
+import { trackEvent } from '~/utils/analytics'
 import { NOTIFICATION } from '~/utils/config'
 
 export const TimerContext = React.createContext<{
@@ -25,7 +27,8 @@ export const useTimerContext = () => {
 
 export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { notify } = useNotificationsContext()
-  const { reset, setTotalTime, start, stop, tick, time } = useTimerStore()
+  const { addInterval } = useIntervalsStore()
+  const { isRunning, reset, setTotalTime, start, stop, tick, time } = useTimerStore()
   const [currentSegment, workLength, shortLength, longLength] = useSettingsStore(state => [
     state.currentSegment,
     state.workLength,
@@ -43,24 +46,31 @@ export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
     start()
     workerRef.current?.postMessage('start')
+    trackEvent('TIMER_STARTED')
   }, [reset, start, time])
 
   const onStopTimer = useCallback(() => {
     stop()
     workerRef.current?.postMessage('stop')
+    trackEvent('TIMER_STOPPED')
   }, [stop])
 
   const onResetTimer = useCallback(() => {
     reset()
     workerRef.current?.postMessage('stop')
+    trackEvent('TIMER_RESET')
   }, [reset])
 
   useEffect(() => {
-    if (time < 1) {
+    if (time < 1 && isRunning) {
       onStopTimer()
+      addInterval({
+        type: currentSegment,
+      })
       notify(NOTIFICATION)
+      trackEvent('TIMER_EXPIRED')
     }
-  }, [notify, onStopTimer, time])
+  }, [addInterval, currentSegment, isRunning, notify, onStopTimer, time])
 
   const onSegmentChange = useCallback((totalTime: number) => {
     setTotalTime(totalTime)
@@ -70,12 +80,15 @@ export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   useEffect(() => {
     if (currentSegment === 'WORK') {
       onSegmentChange(workLength)
+      trackEvent('TIMER_SEGMENT_CHANGED', { segment: 'WORK' })
     }
     if (currentSegment === 'SHORT') {
       onSegmentChange(shortLength)
+      trackEvent('TIMER_SEGMENT_CHANGED', { segment: 'SHORT' })
     }
     if (currentSegment === 'LONG') {
       onSegmentChange(longLength)
+      trackEvent('TIMER_SEGMENT_CHANGED', { segment: 'LONG' })
     }
   }, [currentSegment, longLength, onSegmentChange, shortLength, workLength])
 
