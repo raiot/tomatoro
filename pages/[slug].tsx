@@ -1,10 +1,14 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetStaticProps } from 'next'
+import posthog from 'posthog-js'
 import React from 'react'
-import { Grid, Heading } from 'theme-ui'
+import { Box, Grid, Heading } from 'theme-ui'
+import { useIsClient } from 'usehooks-ts'
 
 import { BackCta } from '~/components/atoms/back-cta'
+import { PageRating } from '~/components/organisms/page-rating'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
+import { SubscribeWidget } from '~/components/organisms/subscribe-widget'
 import { Page } from '~/components/templates/page'
 import { getBanners, getPostBySlug } from '~/utils/cms.api'
 import { PAGES } from '~/utils/config'
@@ -44,6 +48,10 @@ export const getStaticProps: GetStaticProps<
 }
 
 export default function PageBySlug ({ banners, post }: { post: Post, banners: Banner[] }) {
+  const isClient = useIsClient()
+  const isPageRatingWidgetEnabled = posthog.isFeatureEnabled('page-rating-widget') || true
+  const isSubscriptionWidgetEnabled = posthog.isFeatureEnabled('subscription-widget') || true
+
   if (!post) {
     return null
   }
@@ -70,7 +78,17 @@ export default function PageBySlug ({ banners, post }: { post: Post, banners: Ba
         } }>
         <Heading as="h1">{ post.attributes.title }</Heading>
         <RichTextRenderer content={ post.attributes.content }/>
+        { isClient && isPageRatingWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <PageRating pageId={ post.attributes.slug }/>
+          </Box>
+        ) }
         <BackCta/>
+        { isClient && isSubscriptionWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <SubscribeWidget/>
+          </Box>
+        ) }
       </Grid>
     </Page>
   )

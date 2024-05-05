@@ -1,20 +1,26 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
+import posthog from 'posthog-js'
 import React from 'react'
-import { Grid, Heading } from 'theme-ui'
+import { Box, Grid, Heading } from 'theme-ui'
+import { useIsClient } from 'usehooks-ts'
 
 import { BackCta } from '~/components/atoms/back-cta'
 import { QuestionCard } from '~/components/atoms/question-card'
+import { PageRating } from '~/components/organisms/page-rating'
 import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
+import { SubscribeWidget } from '~/components/organisms/subscribe-widget'
 import { Page } from '~/components/templates/page'
 import { getQuestions, getSingleType } from '~/utils/cms.api'
 import { createFaqStructuredData } from '~/utils/structured-data.utils'
+
+const slug = 'faq'
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ locale }) => {
   try {
     const fieldParameters = ['seo', 'seo.metaImage', 'hero'].join('&populate[]=')
     const [page, questions] = await Promise.all([
-      getSingleType<BasicPage>('faq', fieldParameters, locale),
+      getSingleType<BasicPage>(slug, fieldParameters, locale),
       getQuestions(locale),
     ])
     return { props: { questions, page } }
@@ -30,6 +36,10 @@ interface RouteProps {
 }
 
 export default function Faq ({ page, questions }: RouteProps) {
+  const isClient = useIsClient()
+  const isPageRatingWidgetEnabled = posthog.isFeatureEnabled('page-rating-widget')
+  const isSubscriptionWidgetEnabled = posthog.isFeatureEnabled('subscription-widget')
+
   if (!page) {
     return null
   }
@@ -67,7 +77,19 @@ export default function Faq ({ page, questions }: RouteProps) {
             answer={ question.attributes.content }/>
         )) }
 
+        { isClient && isPageRatingWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <PageRating pageId={ slug }/>
+          </Box>
+        ) }
+
         <BackCta/>
+
+        { isClient && isSubscriptionWidgetEnabled && (
+          <Box sx={ { my: 5 } }>
+            <SubscribeWidget/>
+          </Box>
+        ) }
       </Grid>
     </Page>
   )

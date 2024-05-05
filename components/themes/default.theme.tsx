@@ -128,6 +128,9 @@ export const defaultTheme: Theme = {
     },
   },
   forms: {
+    input: {
+      bg: 'background',
+    },
     label: {
       color: 'textMediumEmphasis',
       fontFamily: 'body',
@@ -158,6 +161,12 @@ export const defaultTheme: Theme = {
   },
   cards: {
     primary: {
+      padding: 4,
+      borderRadius: 2,
+      border: '1px solid #ddd',
+    },
+    widget: {
+      bg: rgba('#333', 0.03),
       padding: 4,
       borderRadius: 2,
       border: '1px solid #ddd',

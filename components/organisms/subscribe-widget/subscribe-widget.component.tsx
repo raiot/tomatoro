@@ -35,7 +35,7 @@ export const SubscribeWidget: FC = () => {
   }
 
   return (
-    <Card sx={ { display: 'flex', flexDirection: 'column', gap: 3 } }>
+    <Card variant="widget" sx={ { display: 'flex', flexDirection: 'column', gap: 3 } }>
       <Heading as="h2" m={ 0 }>{ t('title') }</Heading>
       <Paragraph>{ t('content') }</Paragraph>
       { isSubscriptionDisabled ? (

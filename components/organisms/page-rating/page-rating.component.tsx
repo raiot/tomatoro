@@ -30,7 +30,7 @@ export const PageRating: FC<Props> = ({ pageId }) => {
   }
 
   return (
-    <Card sx={ { display: 'flex', flexDirection: 'column', gap: 3 } }>
+    <Card variant="widget" sx={ { display: 'flex', flexDirection: 'column', gap: 3 } }>
       <Heading as="h2" m={ 0 }>{ t('title') }</Heading>
       <Flex sx={ { gap: 4 } }>
         {

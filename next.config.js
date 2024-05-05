@@ -82,6 +82,10 @@ const nextConfig = {
         source: '/sitemap.xml',
         destination: '/sitemap',
       },
+      {
+        source: '/preguntas-frecuentes',
+        destination: '/faq',
+      },
     ]
   },
 }
