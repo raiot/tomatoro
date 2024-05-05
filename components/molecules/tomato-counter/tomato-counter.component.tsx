@@ -27,7 +27,7 @@ export const TomatoCounter: FC = () => {
         { t('title') }
       </Heading>
 
-      <Flex sx={ { gap: '0.25em' } }>
+      <Flex sx={ { gap: '0.25em', justifyContent: 'center', width: 200, flexWrap: 'wrap' } }>
         { intervals.map(createTomatoForInterval) }
       </Flex>
 
