@@ -86,6 +86,10 @@ const nextConfig = {
         source: '/preguntas-frecuentes',
         destination: '/faq',
       },
+      {
+        source: '/ayuda/:slug',
+        destination: '/help/:slug',
+      },
     ]
   },
 }

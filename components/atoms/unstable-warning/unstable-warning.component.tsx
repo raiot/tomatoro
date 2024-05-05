@@ -8,8 +8,8 @@ import { RichTextRenderer } from '~/components/organisms/rich-text-renderer'
 
 const stableLink = 'https://tomatoro.com?utm_source=banner&utm_medium=link&utm_campaign=unstable'
 const learnMoreUrl = {
-  en: '/blog/exploring-the-unstable-branch-of-tomatoro?utm_source=banner&utm_medium=link&utm_campaign=unstable',
-  es: '/es/blog/que-es-la-version-inestable-de-tomatoro?utm_source=banner&utm_medium=link&utm_campaign=unstable',
+  en: '/help/exploring-the-unstable-branch-of-tomatoro?utm_source=banner&utm_medium=link&utm_campaign=unstable',
+  es: '/es/ayuda/que-es-la-version-inestable-de-tomatoro?utm_source=banner&utm_medium=link&utm_campaign=unstable',
 }
 
 const Frame = styled(Flex)`
