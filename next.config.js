@@ -74,6 +74,11 @@ const nextConfig = {
         destination: '/privacy-notice',
         permanent: true,
       },
+      {
+        source: '/terms',
+        destination: '/terms-of-service',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {
