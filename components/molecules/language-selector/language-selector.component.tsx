@@ -39,7 +39,7 @@ export const LanguageSelector = () => {
   return isLoading ?
     <Spinner size={ 36 } strokeWidth={ 5 } title={ t('loadingLanguage') }/> :
     (
-      <Select value={ lang } onChange={ ({ target }) => onChange(target.value) }>
+      <Select value={ lang } onChange={ ({ target }) => onChange(target.value) } aria-label="language-toggle">
         <option value="en">English 🇺🇸</option>
         <option value="es">Español { spanishFlag }&nbsp;</option>
       </Select>

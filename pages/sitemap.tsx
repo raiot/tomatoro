@@ -26,6 +26,12 @@ function generateSiteMap ({ domain, help, posts, staticPages }: SiteMapData) {
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
       </url>
+      <url>
+        <loc>https://tomatoro.com/es</loc>
+        <lastmod>${ new Date().toISOString() }</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+      </url>
      ${ staticPages.map(({ slug }) => `
         <url>
             <loc>${ `${ domain }${ slug }` }</loc>
