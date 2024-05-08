@@ -45,7 +45,6 @@ export const Page: FC<PageProps> = ({
   const keywords = seo?.keywords || SEO.keywords
   const image = seo?.metaImage?.data?.attributes.url || SEO.image
   const url = SEO.url + cleanPath
-
   const metaRobots = seo?.metaRobots || 'index, follow'
   const canonicalUrl = seo?.canonicalURL
 
