@@ -45,7 +45,7 @@ export const Page: FC<PageProps> = ({
   const keywords = seo?.keywords || SEO.keywords
   const image = seo?.metaImage?.data?.attributes.url || SEO.image
   const url = SEO.url + cleanPath
-  const jsonLd = seo?.structuredData || {}
+
   const metaRobots = seo?.metaRobots || 'index, follow'
   const canonicalUrl = seo?.canonicalURL
 
@@ -62,6 +62,15 @@ export const Page: FC<PageProps> = ({
 
     return result
   }, [seo?.metaTitle, subtitle])
+
+  const jsonLd = seo?.structuredData || {
+    '@context': 'http://schema.org',
+    '@type': 'WebPage',
+    'name': composedTitle,
+    'description': description,
+    'url': url,
+    'image': image,
+  }
 
   const origin =
     typeof window !== 'undefined' && window.location.origin
