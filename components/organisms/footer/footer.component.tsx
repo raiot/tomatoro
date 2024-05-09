@@ -79,9 +79,15 @@ export const Footer: FC<Props> = ({ version }) => {
         )) }
       </Flex>
       <Flex sx={ section }>
-        <Text variant="small" as="span">
-          { t('footer.copyright', { currentYear: footerData.currentYear }) }
-        </Text>
+        <Flex sx={ { flexDirection: 'column' } }>
+          <Text variant="small" as="span">
+            { t('footer.copyright', { currentYear: footerData.currentYear }) }
+          </Text>
+
+          <Text variant="small" as="span">
+            { t('footer.disclaimer') }
+          </Text>
+        </Flex>
 
         { version && (
           <Text variant="small" sx={ { textAlign: ['left', 'right'] } }>
