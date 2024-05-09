@@ -1,11 +1,12 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import React from 'react'
-import { Box, Divider } from 'theme-ui'
+import { Box, Divider, Grid } from 'theme-ui'
 
 import { Screen } from '~/components/atoms/screen'
 import { TomatoCounter } from '~/components/molecules/tomato-counter'
 import { NotificationsWarn } from '~/components/organisms/notifications-warn'
+import { SubscribeWidget } from '~/components/organisms/subscribe-widget'
 import { HowItWorks } from '~/components/templates/how-it-works'
 import { Page } from '~/components/templates/page'
 import { TimerWithSelector } from '~/components/templates/timer-with-selector'
@@ -48,6 +49,12 @@ export default function Home ({ banners }: { banners: Banner[] }) {
 
       <Screen id="who-uses-tomatoro">
         <WhoUses/>
+      </Screen>
+
+      <Screen id="subscribe">
+        <Grid variant="contained" gap={ 4 }>
+          <SubscribeWidget/>
+        </Grid>
       </Screen>
     </Page>
   )
