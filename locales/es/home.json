@@ -26,9 +26,13 @@
     },
     "cta": "Aprende más acerca de ésta técnica"
   },
-  "getInTouch": {
-    "title": "Mantente en contacto",
-    "content": "Tomatoro es un proyecto de código abierto. Puedes experimentar con el código fuente y aplicarlo en tus propios proyectos. Si tienes alguna pregunta o sugerencia, no dudes en contactarnos. ¡Nos alegra conocer tus opiniones! :)",
-    "cta": "Deja tus comentarios"
+  "whoUses": {
+    "title": "¿Quiénes usan la Técnica Pomodoro?",
+    "imageAlt": "Un grupo de tomates con caras y gafas",
+    "content": {
+      "title": "Personas que necesitan concentrarse.",
+      "line1": "Muchos de tus YouTubers, influencers y emprendedores favoritos están utilizando la Técnica Pomodoro.",
+      "line2": "Si a menudo te encuentras distraído o procrastinando, Tomatoro podría ayudarte."
+    }
   }
 }

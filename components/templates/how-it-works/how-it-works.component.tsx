@@ -30,7 +30,7 @@ export const HowItWorks: FC = () => {
           height={ 300 }
           sizes="100vw"
           sx={ {
-            width: '50%',
+            width: ['100%', '50%'],
             height: 'auto',
           } }
         />
