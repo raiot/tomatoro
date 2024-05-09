@@ -14,14 +14,16 @@
     }
   },
   "howItWorks": {
-    "title": "Como ser más productivo",
-    "sections": {
-      "work": "Configura el contador",
-      "short": "Toma un descanso",
-      "long": "Repite"
+    "title": "¿Cómo funciona el contador Pomodoro?",
+    "imageAlt": "Ilustración de la técnica Pomodoro con tomates",
+    "content": {
+      "title": "Domina el juego de la productividad",
+      "text": "En cuatro sencillos pasos:",
+      "step1": "Concéntrate en tu trabajo por 25 minutos",
+      "step2": "Toma un descanso corto, luego repite",
+      "step3": "Después de tres ciclos, toma un descanso largo",
+      "step4": "Repite hasta terminar tus tareas"
     },
-    "contentOne": "Para aumentar tu productividad, utiliza la técnica Pomodoro. Simplemente alterna ciclos de concentración en tu trabajo con descansos cortos.",
-    "contentTwo": "Por cada 25 minutos de trabajo o Tomatoros, toma un descanso de 5 minutos. Después de completar 3 Tomatoros, toma un descanso más largo de 15 minutos. ¡Repite este ciclo!",
     "cta": "Aprende más acerca de ésta técnica"
   },
   "getInTouch": {

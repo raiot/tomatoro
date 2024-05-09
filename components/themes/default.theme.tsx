@@ -12,7 +12,7 @@ const openSans = Open_Sans({
   subsets: ['latin'],
 })
 
-const maxWidth = '768px'
+const maxWidth = '800px'
 
 export const defaultTheme: Theme = {
   fonts: {
@@ -119,8 +119,6 @@ export const defaultTheme: Theme = {
   },
   grids: {
     contained: {
-      alignItems: 'start',
-      justifyContent: 'space-between',
       mx: 'auto',
       maxWidth,
       padding: '1em',
