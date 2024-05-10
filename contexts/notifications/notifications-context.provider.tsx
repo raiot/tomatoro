@@ -30,14 +30,14 @@ export const NotificationsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [hasPermissions, setHasPermissions] = React.useState<boolean>(true)
 
   useEffect(() => {
-    if (isIOS()) {
+    if (!('Notification' in window) || isIOS()) {
       return
     }
     showNotifications && setHasPermissions(Notification?.permission === 'granted')
   }, [showNotifications])
 
   const requestPermission = () => {
-    if (isIOS()) {
+    if (!('Notification' in window) || isIOS()) {
       return
     }
     Notification?.requestPermission()
@@ -47,7 +47,7 @@ export const NotificationsProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const notify = useCallback(({ title, ...options }: NotificationPayload) => {
-    if (isIOS()) {
+    if (!('Notification' in window) || isIOS()) {
       return
     }
     if (showNotifications && !!Notification && hasPermissions) {

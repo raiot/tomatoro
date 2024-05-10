@@ -32,6 +32,7 @@
     "lineOne": "Desata la productividad,",
     "lineTwo": "Un Tomatoro a la vez! 🍅🎯",
     "copyright": "© 2017-{{currentYear}} Tomatoro. Todos los derechos reservados.",
+    "disclaimer": "Técnica Pomodoro® y Pomodoro® son marcas registradas de Francesco Cirillo. Tomatoro no está afiliado, asociado ni respaldado por Francesco Cirillo.",
     "groups": {
       "site": {
         "title": "Sitio",
